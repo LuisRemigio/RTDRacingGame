@@ -7,7 +7,8 @@ public class AIMove : MonoBehaviour
     public float turnSpeed;
     public float moveSpeed;
     public float maxSpeed;
-    public Transform path;
+    //public Transform path;
+    public GameObject[] pathGroup;
     public float pointL = 10f;
     public int currentNode = 0;
     public bool brake = false;
@@ -17,6 +18,8 @@ public class AIMove : MonoBehaviour
     private List<Transform> nodes;
 
     Rigidbody rb;
+    int index;
+    Transform[] pathTransforms;
 
     //[Header("Sensors")]
     //public float sensorLength = 3f;
@@ -24,15 +27,21 @@ public class AIMove : MonoBehaviour
     //public float frontSideSensorPosition = 0.2f;
     //public float frontSensorAngle = 30f;
 
+    void Awake()
+    {
+        index = Random.Range(0, pathGroup.Length);
+    }
+
     void Start ()
     {
         rb = gameObject.GetComponent<Rigidbody>();
-        Transform[] pathTransforms = path.GetComponentsInChildren<Transform>();
+
+        Transform[] pathTransforms = pathGroup[index].GetComponentsInChildren<Transform>();
         nodes = new List<Transform>();
 
         for (int i = 0; i < pathTransforms.Length; i++)
         {
-            if (pathTransforms[i] != path.transform)
+            if (pathTransforms[i] != pathGroup[index].transform)
             {
                 nodes.Add(pathTransforms[i]);
             }
