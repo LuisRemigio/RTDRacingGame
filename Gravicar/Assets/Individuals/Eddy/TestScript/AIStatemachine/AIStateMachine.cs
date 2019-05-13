@@ -105,13 +105,6 @@ public class AIStateMachine : MonoBehaviour
         {
             stateMachine.ChangeState(AIFlipState.Instance);
         }
-
-
         stateMachine.Update();
-    }
-
-    void FixedUpdate()
-    {
-        
     }
 }
