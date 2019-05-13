@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class ArtificialGravity : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
+    [SerializeField] float gravitationalForce = 10.0f;
     // Update is called once per frame
     void Update()
     {
-        gameObject.GetComponent<Rigidbody>().AddForce(-gameObject.transform.up * gameObject.GetComponent<Rigidbody>().mass * 100.0f);
+        gameObject.GetComponent<Rigidbody>().AddForce(-gameObject.transform.up * gameObject.GetComponent<Rigidbody>().mass * gravitationalForce);
     }
 }
