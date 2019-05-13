@@ -30,13 +30,13 @@ public class AIIdleState : State<AIStateMachine>
     public override void EnterState(AIStateMachine _owner)
     {
         Debug.Log("Entering AIIdleState State");
-
+        _owner.canInput = false;
     }
 
     public override void ExitState(AIStateMachine _owner)
     {
         Debug.Log("Exiting AIIdleState State");
-
+        _owner.canInput = true;
     }
 
     public override void UpdateState(AIStateMachine _owner)
