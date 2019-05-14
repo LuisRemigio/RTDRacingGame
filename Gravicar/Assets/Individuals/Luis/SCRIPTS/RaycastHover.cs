@@ -7,7 +7,7 @@ public class RaycastHover : MonoBehaviour
     [SerializeField] List<Transform> hoverRaycastOrigins;
     Transform flipperRaycast;
     List<Vector3> currentRaycastPositions;
-    [SerializeField] float hoverHeight = 2.0f;
+    [SerializeField] float hoverHeight = 8.0f;
     Vector3 raycastDirection;
     int mask = 1 << 10;
     [SerializeField] float rayRange = 10.0f;
@@ -17,6 +17,7 @@ public class RaycastHover : MonoBehaviour
     [SerializeField] float stabilizeForce = 8.0f;
     [SerializeField] float flipForce = 25.0f;
     ArtificialGravity artGrav;
+    [SerializeField] bool physicsBased = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +31,17 @@ public class RaycastHover : MonoBehaviour
     {
         raycastDirection = -gameObject.transform.up;
         RaycastHit hit;
-
+        // Checks if the vehicle is grounded
+        for (int i = 0; i < hoverRaycastOrigins.Count; i++)
+        {
+            if (!Physics.Raycast(hoverRaycastOrigins[i].position, raycastDirection, out hit, rayRange, mask))
+            {
+                artGrav.setGrounded(false);
+                break;
+            }
+            artGrav.setGrounded(true);
+        }
+        // Hovering functionality
         for (int i = 0; i < hoverRaycastOrigins.Count; i++)
         {
             // Checks for ground
@@ -43,13 +54,24 @@ public class RaycastHover : MonoBehaviour
             {
                 Debug.DrawRay(hoverRaycastOrigins[i].position, raycastDirection * hit.distance, Color.yellow);
                 Debug.Log("Did Hit");
-                if (hit.distance < rayRange && hit.distance > rayRange - .5f)
+
+                // Physics-based hovering
+                if (physicsBased)
                 {
-                    body.AddForceAtPosition(-raycastDirection * body.mass * stabilizeForce, hoverRaycastOrigins[i].position);
-                    Debug.Log("Stabilizing");
+                    if (hit.distance < rayRange && hit.distance > rayRange - .5f)
+                    {
+                        body.AddForceAtPosition(-raycastDirection * body.mass * stabilizeForce, hoverRaycastOrigins[i].position);
+                        Debug.Log("Stabilizing");
+                    }
+                    else
+                        body.AddForceAtPosition(-raycastDirection * body.mass * (hoverForce * (rayRange / hit.distance)), hoverRaycastOrigins[i].position);
                 }
+                // Distance-based hovering
                 else
-                    body.AddForceAtPosition(-raycastDirection * body.mass * (hoverForce * (rayRange / hit.distance)), hoverRaycastOrigins[i].position);
+                {
+                    gameObject.transform.SetPositionAndRotation(gameObject.transform.position + hit.collider.transform.up * hoverHeight, Quaternion.Lerp(gameObject.transform.rotation, new Quaternion(hit.collider.transform.rotation.x, gameObject.transform.rotation.y, gameObject.transform.rotation.z, 1), Time.deltaTime));
+                }
+
             }
         }
         if (Physics.Raycast(flipperRaycast.position, -raycastDirection, out hit, rayRange, mask))

@@ -1405,6 +1405,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravitationalForce: 10
+  lastCollider: {fileID: 0}
+  isGrounded: 0
 --- !u!114 &1346890669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1421,10 +1423,12 @@ MonoBehaviour:
   - {fileID: 408524592}
   - {fileID: 51518777}
   - {fileID: 1186751101}
-  hoverHeight: 2
+  hoverHeight: 0.1
   rayRange: 8
+  maxRayRange: 70
   hoverForce: 3
   stabilizeForce: 10
+  flipForce: 25
 --- !u!1 &1411152199
 GameObject:
   m_ObjectHideFlags: 0
