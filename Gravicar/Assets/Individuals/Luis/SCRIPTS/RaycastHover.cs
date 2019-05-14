@@ -18,6 +18,9 @@ public class RaycastHover : MonoBehaviour
     [SerializeField] float flipForce = 25.0f;
     ArtificialGravity artGrav;
     [SerializeField] bool physicsBased = false;
+
+    Vector3 velocity;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,6 +61,7 @@ public class RaycastHover : MonoBehaviour
                 // Physics-based hovering
                 if (physicsBased)
                 {
+                    artGrav.setPhysics(true);
                     if (hit.distance < rayRange && hit.distance > rayRange - .5f)
                     {
                         body.AddForceAtPosition(-raycastDirection * body.mass * stabilizeForce, hoverRaycastOrigins[i].position);
@@ -69,7 +73,29 @@ public class RaycastHover : MonoBehaviour
                 // Distance-based hovering
                 else
                 {
-                    gameObject.transform.SetPositionAndRotation(gameObject.transform.position + hit.collider.transform.up * hoverHeight, Quaternion.Lerp(gameObject.transform.rotation, new Quaternion(hit.collider.transform.rotation.x, gameObject.transform.rotation.y, gameObject.transform.rotation.z, 1), Time.deltaTime));
+                    artGrav.setPhysics(false);
+                    //gameObject.transform.SetPositionAndRotation(
+                    //    Vector3.SmoothDamp(
+                    //        gameObject.transform.position,
+                    //        hit.point + hit.collider.transform.up * (hoverHeight * .8f),
+                    //        ref velocity,
+                    //        1.0f,
+                    //        10.0f
+                    //        ),
+                    //    Quaternion.Lerp(
+                    //        gameObject.transform.rotation,
+                    //        new Quaternion(gameObject.transform.rotation.x, gameObject.transform.rotation.y, gameObject.transform.rotation.z, 1),
+                    //        Time.deltaTime
+                    //        )
+                    //    );
+                    gameObject.transform.position =
+                        Vector3.SmoothDamp(
+                            gameObject.transform.position,
+                            hit.point + hit.collider.transform.up * (hoverHeight * .8f),
+                            ref velocity,
+                            1.0f,
+                            10.0f
+                        );
                 }
 
             }
