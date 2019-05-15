@@ -9,6 +9,7 @@ public class RaycastHover : MonoBehaviour
     Vector3 raycastDirection;
     Rigidbody body;
     ArtificialGravity artGrav;
+    PlayerController controller;
     int mask = 1 << 10;
     [SerializeField] float rayRange = 10.0f;
     [SerializeField] float maxRayRange = 70.0f;
@@ -30,6 +31,7 @@ public class RaycastHover : MonoBehaviour
         body = gameObject.GetComponent<Rigidbody>();
         flipperRaycast = gameObject.transform;
         artGrav = gameObject.GetComponent<ArtificialGravity>();
+        controller = gameObject.GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -42,9 +44,11 @@ public class RaycastHover : MonoBehaviour
         {
             if (!Physics.Raycast(hoverRaycastOrigins[i].position, raycastDirection, out hit, rayRange + 2.0f, mask))
             {
+                controller.setGrounded(false);
                 artGrav.setGrounded(false);
                 break;
             }
+            controller.setGrounded(true);
             artGrav.setGrounded(true);
         }
         // Hovering functionality
@@ -53,7 +57,7 @@ public class RaycastHover : MonoBehaviour
             // Checks for ground
             if (Physics.Raycast(hoverRaycastOrigins[i].position, raycastDirection, out hit, maxRayRange, mask))
             {
-                artGrav.setCollider(hit.collider);
+                artGrav.setCollider(hit.collider.gameObject.GetComponentsInChildren<Transform>()[1].gameObject);
             }
             // Checks for within hover distance
             if (Physics.Raycast(hoverRaycastOrigins[i].position, raycastDirection, out hit, rayRange, mask))

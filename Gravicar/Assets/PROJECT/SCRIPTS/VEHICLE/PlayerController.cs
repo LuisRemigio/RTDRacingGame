@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
         //canInput = false;
     }
 
-    
+
     void Update()
     {
         //other stuff
@@ -39,9 +39,9 @@ public class PlayerController : MonoBehaviour
                 {
                     rb.velocity = rb.velocity * breakMod;
                 }
+                rb.AddForce(transform.forward * z, ForceMode.Acceleration);
             }
-            rb.AddRelativeTorque(transform.up * x * torque, ForceMode.Acceleration);
-            rb.AddForce(transform.forward * z, ForceMode.Acceleration);
+            rb.AddRelativeTorque(gameObject.transform.up * x * torque, ForceMode.Acceleration);
             if (Input.GetKeyDown(KeyCode.W))
             {
                 //Engine sound
@@ -65,5 +65,10 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = rb.velocity.normalized * maxSpeed;
             }
         }
+    }
+
+    public void setGrounded(bool grounded)
+    {
+        isGrounded = grounded;
     }
 }
