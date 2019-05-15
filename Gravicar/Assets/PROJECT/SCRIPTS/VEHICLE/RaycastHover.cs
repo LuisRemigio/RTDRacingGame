@@ -10,17 +10,17 @@ public class RaycastHover : MonoBehaviour
     Rigidbody body;
     ArtificialGravity artGrav;
     int mask = 1 << 10;
+    [SerializeField] float rayRange = 10.0f;
+    [SerializeField] float maxRayRange = 70.0f;
     [SerializeField] List<Transform> hoverRaycastOrigins;
     [SerializeField] Transform centerOfVehicle;
     [SerializeField] float hoverHeight = 8.0f;
-    [SerializeField] float rayRange = 10.0f;
-    [SerializeField] float maxRayRange = 70.0f;
+    [SerializeField] bool physicsBased = false;
     [SerializeField] float stabilizingRange = .5f;
     [SerializeField] float hoverForce = 5.0f;
     [SerializeField] float stabilizeForce = 8.0f;
     [SerializeField] float clampingSpeed = 2.0f;
     [SerializeField] float flipForce = 25.0f;
-    [SerializeField] bool physicsBased = false;
 
     Vector3 velocity;
 
@@ -65,7 +65,7 @@ public class RaycastHover : MonoBehaviour
                 if (physicsBased)
                 {
                     artGrav.setPhysics(true);
-                    body.AddForceAtPosition(-raycastDirection * body.mass * (hoverForce * (rayRange / hit.distance)), hoverRaycastOrigins[i].position);
+                    body.AddForceAtPosition(-raycastDirection * body.mass * (hoverForce * (1 - (hit.distance / rayRange))), hoverRaycastOrigins[i].position);
                     //if (hit.distance < rayRange && hit.distance > rayRange - .5f)
                     //{
                     //    body.AddForceAtPosition(-raycastDirection * body.mass * stabilizeForce, hoverRaycastOrigins[i].position);

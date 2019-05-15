@@ -536,8 +536,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a698bf3a7d858ee4f95b22445aa3ca4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravitationalForce: 10
+  gravityComponent: 10
+  maxFallSpeed: 30
   lastCollider: {fileID: 0}
+  isGrounded: 0
 --- !u!114 &1346890669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -554,12 +556,16 @@ MonoBehaviour:
   - {fileID: 408524592}
   - {fileID: 51518777}
   - {fileID: 1186751101}
+  centerOfVehicle: {fileID: 0}
   hoverHeight: 2
   rayRange: 8
   maxRayRange: 70
+  stabilizingRange: 0.5
   hoverForce: 3
   stabilizeForce: 10
+  clampingSpeed: 2
   flipForce: 25
+  physicsBased: 1
 --- !u!1001 &9119382875410443554
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -570,7 +576,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: dfca4787d55afb6439bf89a0e224c9b2,
         type: 3}
       propertyPath: m_Name
-      value: RTD_TestModel
+      value: RTD_TestModel Variant
       objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: dfca4787d55afb6439bf89a0e224c9b2,
         type: 3}
