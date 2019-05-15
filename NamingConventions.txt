@@ -1,0 +1,2 @@
+Git branches: "FName - Working [Feature Name]"
+	e.g.: Stephen - Working Grappling Hook
