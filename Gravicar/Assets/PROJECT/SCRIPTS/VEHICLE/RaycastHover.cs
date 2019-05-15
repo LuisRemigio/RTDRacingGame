@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class RaycastHover : MonoBehaviour
 {
-    [SerializeField] List<Transform> hoverRaycastOrigins;
     Transform flipperRaycast;
     List<Vector3> currentRaycastPositions;
-    [SerializeField] float hoverHeight = 8.0f;
     Vector3 raycastDirection;
+    Rigidbody body;
+    ArtificialGravity artGrav;
     int mask = 1 << 10;
+    [SerializeField] List<Transform> hoverRaycastOrigins;
+    [SerializeField] Transform centerOfVehicle;
+    [SerializeField] float hoverHeight = 8.0f;
     [SerializeField] float rayRange = 10.0f;
     [SerializeField] float maxRayRange = 70.0f;
-    Rigidbody body;
+    [SerializeField] float stabilizingRange = .5f;
     [SerializeField] float hoverForce = 5.0f;
     [SerializeField] float stabilizeForce = 8.0f;
+    [SerializeField] float clampingSpeed = 2.0f;
     [SerializeField] float flipForce = 25.0f;
-    ArtificialGravity artGrav;
     [SerializeField] bool physicsBased = false;
 
     Vector3 velocity;
@@ -37,7 +40,7 @@ public class RaycastHover : MonoBehaviour
         // Checks if the vehicle is grounded
         for (int i = 0; i < hoverRaycastOrigins.Count; i++)
         {
-            if (!Physics.Raycast(hoverRaycastOrigins[i].position, raycastDirection, out hit, rayRange, mask))
+            if (!Physics.Raycast(hoverRaycastOrigins[i].position, raycastDirection, out hit, rayRange + 2.0f, mask))
             {
                 artGrav.setGrounded(false);
                 break;
@@ -62,13 +65,13 @@ public class RaycastHover : MonoBehaviour
                 if (physicsBased)
                 {
                     artGrav.setPhysics(true);
-                    if (hit.distance < rayRange && hit.distance > rayRange - .5f)
-                    {
-                        body.AddForceAtPosition(-raycastDirection * body.mass * stabilizeForce, hoverRaycastOrigins[i].position);
-                        Debug.Log("Stabilizing");
-                    }
-                    else
-                        body.AddForceAtPosition(-raycastDirection * body.mass * (hoverForce * (rayRange / hit.distance)), hoverRaycastOrigins[i].position);
+                    body.AddForceAtPosition(-raycastDirection * body.mass * (hoverForce * (rayRange / hit.distance)), hoverRaycastOrigins[i].position);
+                    //if (hit.distance < rayRange && hit.distance > rayRange - .5f)
+                    //{
+                    //    body.AddForceAtPosition(-raycastDirection * body.mass * stabilizeForce, hoverRaycastOrigins[i].position);
+                    //    Debug.Log("Stabilizing");
+                    //}
+
                 }
                 // Distance-based hovering
                 else
@@ -100,9 +103,36 @@ public class RaycastHover : MonoBehaviour
 
             }
         }
+
+        // Stabilization code
+        if (Physics.Raycast(centerOfVehicle.position, raycastDirection, out hit, rayRange, mask))
+        {
+            Debug.Log("Attempt to Clamp");
+            ClampPosition(body, hit.collider.gameObject, hit.point, rayRange, stabilizingRange);
+        }
+
+        // Vehicle flip code
         if (Physics.Raycast(flipperRaycast.position, -raycastDirection, out hit, rayRange, mask))
         {
             body.AddForceAtPosition(raycastDirection * body.mass * flipForce, hoverRaycastOrigins[0].position);
         }
+
     }
+
+    // Function to enforce vehicle stabilization
+    void ClampPosition(Rigidbody floater, GameObject surface, Vector3 rayHitPoint, float clampHeight, float clampRange)
+    {
+        if (floater.velocity.y < clampingSpeed)
+        {
+            float difference = floater.position.magnitude - surface.transform.position.magnitude;
+            if (difference > surface.transform.up.magnitude * (clampHeight - clampRange)
+                && difference < surface.transform.up.magnitude * (clampHeight + clampRange))
+            {
+                floater.position = rayHitPoint + surface.transform.up * (clampHeight * .8f);
+                floater.velocity = Vector3.zero;
+                Debug.Log("Clamped");
+            }
+        }
+    }
+
 }

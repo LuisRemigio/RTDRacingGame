@@ -16,6 +16,7 @@ public class DragSimulation : MonoBehaviour
         //if (rb.velocity != Vector3.zero)
         {
             rb.AddForce(-rb.velocity * frictionPercentage);
+
         }
     }
 }
