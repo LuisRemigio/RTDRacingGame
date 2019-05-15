@@ -6,7 +6,7 @@ public class ArtificialGravity : MonoBehaviour
 {
     [SerializeField] float gravityComponent = 10.0f;
     [SerializeField] float maxFallSpeed = 30.0f;
-    [SerializeField] Collider lastCollider;
+    [SerializeField] GameObject lastCollider;
     [SerializeField] bool isGrounded;
     Vector3 velocity;
     bool physicsBased;
@@ -33,7 +33,7 @@ public class ArtificialGravity : MonoBehaviour
 
     }
 
-    public void setCollider(Collider c)
+    public void setCollider(GameObject c)
     {
         lastCollider = c;
     }

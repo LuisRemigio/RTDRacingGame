@@ -19,20 +19,26 @@ public class PlayerController : MonoBehaviour
         //canInput = false;
     }
 
-    
+
     void Update()
     {
         //other stuff
     }
 
+    [SerializeField] float moveForce = 0;
+    float velocity;
+    [SerializeField] float smoothTime = 1.0f;
     void FixedUpdate()
     {
         if (canInput == true)
         {
-            var x = Input.GetAxis("Horizontal") * Time.deltaTime * turnSpeed;
-            var z = Input.GetAxis("Vertical") * moveSpeed;
+            var turnForce = Input.GetAxis("Horizontal") * Time.deltaTime * turnSpeed;
 
-
+            //var moveForce;
+            if (Input.GetAxis("Vertical") != 0)
+                moveForce = Input.GetAxis("Vertical") * moveSpeed;
+            else
+                Mathf.SmoothDamp(moveForce, 0, ref velocity, smoothTime, .0001f);
             if (isGrounded)
             {
                 if (Input.GetKey(KeyCode.Space))
@@ -40,8 +46,8 @@ public class PlayerController : MonoBehaviour
                     rb.velocity = rb.velocity * breakMod;
                 }
             }
-            rb.AddRelativeTorque(transform.up * x * torque, ForceMode.Acceleration);
-            rb.AddForce(transform.forward * z, ForceMode.Acceleration);
+            rb.AddForce(gameObject.transform.forward * moveForce, ForceMode.Acceleration);
+            rb.AddTorque(gameObject.transform.up * turnForce * torque, ForceMode.Acceleration);
             if (Input.GetKeyDown(KeyCode.W))
             {
                 //Engine sound
@@ -65,5 +71,10 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = rb.velocity.normalized * maxSpeed;
             }
         }
+    }
+
+    public void setGrounded(bool grounded)
+    {
+        isGrounded = grounded;
     }
 }
