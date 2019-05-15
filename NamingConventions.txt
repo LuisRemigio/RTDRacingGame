@@ -1,2 +1,7 @@
 Git branches: "FName - Working [Feature Name]"
 	e.g.: Stephen - Working Grappling Hook
+
+--------------
+Scripts: 
+Public Variables are Pascal Case (ThisIsPascalCase)
+Member Variables are Camel Case (thisIsCamelCase)
