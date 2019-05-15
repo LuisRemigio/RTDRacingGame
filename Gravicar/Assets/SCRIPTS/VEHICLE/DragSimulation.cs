@@ -13,7 +13,7 @@ public class DragSimulation : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (rb.velocity != Vector3.zero)
+        //if (rb.velocity != Vector3.zero)
         {
             rb.AddForce(-rb.velocity * frictionPercentage);
         }

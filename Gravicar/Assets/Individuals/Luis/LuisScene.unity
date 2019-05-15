@@ -242,50 +242,6 @@ Transform:
   m_Father: {fileID: 512692718}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 60.250004, y: 0, z: -27.169}
---- !u!1 &205082994
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 205082995}
-  - component: {fileID: 205082996}
-  m_Layer: 9
-  m_Name: HoverCollider
-  m_TagString: Hover
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &205082995
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 205082994}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1346890665}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &205082996
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 205082994}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 0.16481884, y: 0.09999999, z: 0.17793693}
-  m_Center: {x: 0, y: -0.03, z: 0.0037314938}
 --- !u!1 &317230872
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,7 +388,7 @@ Transform:
   - {fileID: 51518777}
   - {fileID: 1186751101}
   m_Father: {fileID: 1346890665}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &408524591
 GameObject:
@@ -1334,7 +1290,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346890660}
   serializedVersion: 2
-  m_Mass: 10000
+  m_Mass: 100
   m_Drag: 0
   m_AngularDrag: 5
   m_UseGravity: 0
@@ -1368,6 +1324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25260aaab5f31624ba898c9560d07a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
   frictionPercentage: 100
 --- !u!4 &1346890665 stripped
 Transform:
@@ -1387,6 +1344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a698bf3a7d858ee4f95b22445aa3ca4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gravityComponent: 10
   maxFallSpeed: 30
   lastCollider: {fileID: 0}
   isGrounded: 0
@@ -1537,7 +1495,7 @@ Transform:
   - {fileID: 1097260005}
   - {fileID: 1853056818}
   m_Father: {fileID: 1346890665}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1428498865
 GameObject:
