@@ -620,7 +620,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 40
+  field of view: 95
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -645,8 +645,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 317230872}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.08789662, y: 0.000000021096291, z: -0.000000009123584, w: 0.99612963}
+  m_LocalPosition: {x: 0, y: 5.722827, z: -27.919996}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1479,7 +1479,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-24470
+  m_Name: pb_Mesh-26346
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1993,7 +1993,7 @@ MonoBehaviour:
   centerOfVehicle: {fileID: 1346890665}
   hoverHeight: 6
   physicsBased: 1
-  stabilizingRange: 0.5
+  stabilizingRange: 100
   hoverForce: 8
   stabilizeForce: 10
   clampingSpeed: 2
@@ -2288,7 +2288,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-24466
+  m_Name: pb_Mesh-26338
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3804,6 +3804,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3960757272563543082, guid: 784b64a8d34b7f34dbdadcf6dbcdbf91,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1436805943089377854, guid: 784b64a8d34b7f34dbdadcf6dbcdbf91,
         type: 3}
