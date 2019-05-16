@@ -26,7 +26,9 @@ public class PlayerController : MonoBehaviour
     }
 
     [SerializeField] float moveForce = 0;
+    [SerializeField] float lastMoveForce = 0;
     float velocity;
+    float airVelocity;
     [SerializeField] float smoothTime = 1.0f;
     void FixedUpdate()
     {
@@ -35,20 +37,31 @@ public class PlayerController : MonoBehaviour
             var turnForce = Input.GetAxis("Horizontal") * Time.deltaTime * turnSpeed;
 
             //var moveForce;
+            // Drag Simulation
             if (Input.GetAxis("Vertical") != 0)
                 moveForce = Input.GetAxis("Vertical") * moveSpeed;
             else
                 Mathf.SmoothDamp(moveForce, 0, ref velocity, smoothTime);
             if (moveForce < moveSpeed * .05f)
                 moveForce = 0;
+
+            // Preventing airborne acceleration
             if (isGrounded)
             {
+                lastMoveForce = moveForce;
                 if (Input.GetKey(KeyCode.Space))
                 {
                     rb.velocity = rb.velocity * breakMod;
                 }
+                rb.AddForce(gameObject.transform.forward * moveForce, ForceMode.Acceleration);
             }
-            rb.AddForce(gameObject.transform.forward * moveForce, ForceMode.Acceleration);
+            else
+            {
+                Debug.Log("Slowing Down");
+                lastMoveForce -= lastMoveForce * .01f;
+                Mathf.SmoothDamp(lastMoveForce, 0, ref airVelocity, 5.0f);
+                rb.AddForce(gameObject.transform.forward * lastMoveForce, ForceMode.Acceleration);
+            }
             rb.AddTorque(gameObject.transform.up * turnForce * torque, ForceMode.Acceleration);
             if (Input.GetKeyDown(KeyCode.W))
             {
