@@ -38,7 +38,9 @@ public class PlayerController : MonoBehaviour
             if (Input.GetAxis("Vertical") != 0)
                 moveForce = Input.GetAxis("Vertical") * moveSpeed;
             else
-                Mathf.SmoothDamp(moveForce, 0, ref velocity, smoothTime, .0001f);
+                Mathf.SmoothDamp(moveForce, 0, ref velocity, smoothTime);
+            if (moveForce < moveSpeed * .05f)
+                moveForce = 0;
             if (isGrounded)
             {
                 if (Input.GetKey(KeyCode.Space))
