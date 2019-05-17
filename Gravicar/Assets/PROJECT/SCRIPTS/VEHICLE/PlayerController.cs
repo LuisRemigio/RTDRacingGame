@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public float maxSpeed;
     public float torque = 70;
     Rigidbody rb;
+	GrapplingHook grapple;
     public float breakMod = .98f;
     public bool canInput;
     public bool isGrounded;
@@ -16,14 +17,20 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = this.gameObject.GetComponent<Rigidbody>();
-        //canInput = false;
-    }
+        grapple = this.gameObject.GetComponentInChildren<GrapplingHook>();
+		//canInput = false;
+	}
 
 
     void Update()
     {
-        //other stuff
-    }
+		//other stuff
+
+		if (Input.GetAxis("Fire1") != 0)
+		{
+			grapple.FireHook();
+		}
+	}
 
     [SerializeField] float moveForce = 0;
     [SerializeField] float lastMoveForce = 0;

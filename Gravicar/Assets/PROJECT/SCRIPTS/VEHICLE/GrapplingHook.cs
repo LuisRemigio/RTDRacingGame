@@ -10,6 +10,7 @@ public class GrapplingHook : MonoBehaviour
 	[SerializeField] Vector3 hookOriginalPosition;
 	[SerializeField] GameObject gameOjbect;
 
+	RaycastHit m_Hit;
     float hookTimer;
 
 	// Start is called before the first frame update
@@ -30,7 +31,6 @@ public class GrapplingHook : MonoBehaviour
         {
             Debug.Log("Hook is already fired");
         }
-
 	}
 
     // Update is called once per frame
@@ -39,32 +39,34 @@ public class GrapplingHook : MonoBehaviour
 		//if collider is not shot, shoot out collider
 
         if (hookIsFired)
-		{            
-			
-			//if the collider is still in range of maxdistance, continue moving.
-			if (Vector3.Distance(hookOriginalPosition, transform.localPosition) < maxDistance)
+		{
+			bool hookHasGrabbed = Physics.Raycast(gameObject.transform.position, gameObject.transform.forward, out m_Hit, maxDistance);
+			resetHook();
+			if (hookHasGrabbed)
 			{
-				gameObject.transform.position += gameObject.transform.forward * beamSpeed * Time.deltaTime;       
-            }
-			else //if collider goes beyond range, put it back.
-			{
-				resetHook();
+				RaycastHover hoverController = gameObject.transform.parent.gameObject.GetComponent<RaycastHover>();
+				Debug.Log("Hook Hit True");
+				hoverController.GoToHook(m_Hit);
 			}
+			////if the collider is still in range of maxdistance, continue moving.
+			//if (Vector3.Distance(hookOriginalPosition, transform.localPosition) < maxDistance)
+			//{
+			//	gameObject.transform.position += gameObject.transform.forward * beamSpeed * Time.deltaTime;
+   //         }
+			//else //if collider goes beyond range, put it back.
+			//{
+			//	resetHook();
+			//}
 		}
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            FireHook();
-        }
-
-        if(hookTimer < 8)
-        {
-            hookTimer += Time.deltaTime;
-        }
-        else
-        {
-            resetHook();
-        }
+        //if(hookTimer < 8)
+        //{
+        //    hookTimer += Time.deltaTime;
+        //}
+        //else
+        //{
+        //    resetHook();
+        //}
     }
 
 	private void resetHook()
@@ -72,19 +74,19 @@ public class GrapplingHook : MonoBehaviour
 		//make the hook go back to it's original position.
 		hookIsFired = false;
 		//transform.position = transform.localPosition;
-		transform.localPosition = hookOriginalPosition;
-        hookTimer = 0;
+		//transform.localPosition = hookOriginalPosition;
+        //hookTimer = 0;
 
     }
 
-	private void OnTriggerStay(Collider colliderGameObject)
-	{
-		if (colliderGameObject.tag == "Track")
-		{
-			RaycastHover hoverController = gameObject.transform.parent.gameObject.GetComponent<RaycastHover>();
-			hoverController.GoToHook(gameObject.transform.position, colliderGameObject.transform.gameObject);
-            Debug.Log("Hook Hit True");
-			resetHook();
-		}
-	}
+	//private void OnTriggerStay(Collider colliderGameObject)
+	//{
+	//	if (colliderGameObject.tag == "Track")
+	//	{
+	//		RaycastHover hoverController = gameObject.transform.parent.gameObject.GetComponent<RaycastHover>();
+	//		hoverController.GoToHook(gameObject.transform.position, colliderGameObject.transform.gameObject);
+ //           Debug.Log("Hook Hit True");
+	//		resetHook();
+	//	}
+	//}
 }

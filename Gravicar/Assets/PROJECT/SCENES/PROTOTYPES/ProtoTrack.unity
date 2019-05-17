@@ -132,11 +132,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: CurveTrack_v02
       objectReference: {fileID: 0}
-    - target: {fileID: -7437929682593883805, guid: f2d25d07e89675f4e8d2106231f3c939,
+    - target: {fileID: 6240287023089851808, guid: f2d25d07e89675f4e8d2106231f3c939,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 54b64c0e40ffd63408ffdbaefe8cda88, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6240287023089851808, guid: f2d25d07e89675f4e8d2106231f3c939,
+        type: 3}
+      propertyPath: m_TagString
+      value: Track
+      objectReference: {fileID: 0}
+    - target: {fileID: 7070177764592304143, guid: f2d25d07e89675f4e8d2106231f3c939,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7070177764592304143, guid: f2d25d07e89675f4e8d2106231f3c939,
+        type: 3}
+      propertyPath: m_TagString
+      value: Track
+      objectReference: {fileID: 0}
     - target: {fileID: -5796523634962680500, guid: f2d25d07e89675f4e8d2106231f3c939,
         type: 3}
       propertyPath: m_Layer
@@ -147,6 +162,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Track
       objectReference: {fileID: 0}
+    - target: {fileID: -7437929682593883805, guid: f2d25d07e89675f4e8d2106231f3c939,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 54b64c0e40ffd63408ffdbaefe8cda88, type: 2}
     - target: {fileID: -4216859302048453862, guid: f2d25d07e89675f4e8d2106231f3c939,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -227,26 +247,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 54b64c0e40ffd63408ffdbaefe8cda88, type: 2}
-    - target: {fileID: 6240287023089851808, guid: f2d25d07e89675f4e8d2106231f3c939,
-        type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6240287023089851808, guid: f2d25d07e89675f4e8d2106231f3c939,
-        type: 3}
-      propertyPath: m_TagString
-      value: Track
-      objectReference: {fileID: 0}
-    - target: {fileID: 7070177764592304143, guid: f2d25d07e89675f4e8d2106231f3c939,
-        type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7070177764592304143, guid: f2d25d07e89675f4e8d2106231f3c939,
-        type: 3}
-      propertyPath: m_TagString
-      value: Track
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2d25d07e89675f4e8d2106231f3c939, type: 3}
 --- !u!1 &55726286
@@ -1973,6 +1973,10 @@ PrefabInstance:
       propertyPath: physicsBased
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1346890669, guid: 0cf9123b92272cf4191c7df5e90306b8, type: 3}
+      propertyPath: transitionTime
+      value: 0.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0cf9123b92272cf4191c7df5e90306b8, type: 3}
 --- !u!1001 &238740915
@@ -1992,11 +1996,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -7437929682593883805, guid: f2d25d07e89675f4e8d2106231f3c939,
+    - target: {fileID: 6240287023089851808, guid: f2d25d07e89675f4e8d2106231f3c939,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 54b64c0e40ffd63408ffdbaefe8cda88, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6240287023089851808, guid: f2d25d07e89675f4e8d2106231f3c939,
+        type: 3}
+      propertyPath: m_TagString
+      value: Track
+      objectReference: {fileID: 0}
+    - target: {fileID: 7070177764592304143, guid: f2d25d07e89675f4e8d2106231f3c939,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7070177764592304143, guid: f2d25d07e89675f4e8d2106231f3c939,
+        type: 3}
+      propertyPath: m_TagString
+      value: Track
+      objectReference: {fileID: 0}
     - target: {fileID: -5796523634962680500, guid: f2d25d07e89675f4e8d2106231f3c939,
         type: 3}
       propertyPath: m_Layer
@@ -2007,6 +2026,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Track
       objectReference: {fileID: 0}
+    - target: {fileID: -7437929682593883805, guid: f2d25d07e89675f4e8d2106231f3c939,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 54b64c0e40ffd63408ffdbaefe8cda88, type: 2}
     - target: {fileID: -4216859302048453862, guid: f2d25d07e89675f4e8d2106231f3c939,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2087,26 +2111,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 54b64c0e40ffd63408ffdbaefe8cda88, type: 2}
-    - target: {fileID: 6240287023089851808, guid: f2d25d07e89675f4e8d2106231f3c939,
-        type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6240287023089851808, guid: f2d25d07e89675f4e8d2106231f3c939,
-        type: 3}
-      propertyPath: m_TagString
-      value: Track
-      objectReference: {fileID: 0}
-    - target: {fileID: 7070177764592304143, guid: f2d25d07e89675f4e8d2106231f3c939,
-        type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7070177764592304143, guid: f2d25d07e89675f4e8d2106231f3c939,
-        type: 3}
-      propertyPath: m_TagString
-      value: Track
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2d25d07e89675f4e8d2106231f3c939, type: 3}
 --- !u!4 &238740916 stripped
@@ -23571,8 +23575,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dfa4acf56a581d4980950af5260fab0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  beamSpeed: 150
-  maxDistance: 200
+  beamSpeed: 250
+  maxDistance: 1000
   hookIsFired: 0
   hookOriginalPosition: {x: 0, y: 0, z: 0}
   gameOjbect: {fileID: 0}
