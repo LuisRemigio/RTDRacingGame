@@ -8,8 +8,20 @@ public class ButtonManager : MonoBehaviour
 
     public GameObject pause;
     public bool paused = false;
+    public Animator menuAnim;
+    public Animator optionAnim;
+    public GameObject option;
+    public GameObject menu;
 
     bool inMainMenu = false;
+    Vector3 currentPosition;
+    Vector3 optionCurrentPosition;
+
+    void Awake()
+    {
+        GetPosition();
+        GetOptionPosition();
+    }
 
     void Update()
     {
@@ -18,6 +30,16 @@ public class ButtonManager : MonoBehaviour
         {
             inMainMenu = true;
         }
+    }
+
+    void GetPosition()
+    {
+        currentPosition = new Vector3(transform.position.x, transform.position.y + 19, transform.position.z);
+    }
+
+    void GetOptionPosition()
+    {
+        optionCurrentPosition = new Vector3(option.transform.position.x, option.transform.position.y + 2, option.transform.position.z);
     }
 
     void Pause()
@@ -46,7 +68,8 @@ public class ButtonManager : MonoBehaviour
 
     public void LoadOption()
     {
-        SceneManager.LoadScene("OptionScene");
+        //SceneManager.LoadScene("OptionScene");
+        menuAnim.SetBool("clicked", true);
     }
 
     public void LoadCredit()
@@ -80,4 +103,41 @@ public class ButtonManager : MonoBehaviour
         //Quit game
     }
 
+    public void DisActive()
+    {
+        transform.position = currentPosition;
+        gameObject.SetActive(false);
+    }
+
+    public void Active()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void SetOptionActive()
+    {
+        option.SetActive(true);
+    }
+
+    public void SetOptionDisactive()
+    {
+        option.transform.position = optionCurrentPosition;
+        option.SetActive(false);
+    }
+
+    public void BackToMainMenu()
+    {
+        optionAnim.SetBool("clicked", true);
+    }
+
+    public void SetMenuActive()
+    {
+        menu.SetActive(true);
+    }
+
+    public void AnimationBool()
+    {
+        menuAnim.SetBool("clicked", false);
+        optionAnim.SetBool("clicked", false);
+    }
 }
