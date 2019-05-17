@@ -51,7 +51,7 @@ public class GrapplingHook : MonoBehaviour
 		if (colliderGameObject.tag == "Track")
 		{
 			RaycastHover hoverController = gameObject.transform.parent.gameObject.GetComponent<RaycastHover>();
-			hoverController.GoToHook(gameObject.transform.position, colliderGameObject);
+			hoverController.GoToHook(gameObject.transform.position, colliderGameObject.transform.gameObject);
 			resetHook();
 		}
 	}
