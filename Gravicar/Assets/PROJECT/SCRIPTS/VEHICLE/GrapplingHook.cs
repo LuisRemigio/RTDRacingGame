@@ -18,7 +18,17 @@ public class GrapplingHook : MonoBehaviour
 
 	public void FireHook()
 	{
-		hookIsFired = true;
+        if(!hookIsFired)
+        {
+            hookOriginalPosition = transform.localPosition;
+            hookIsFired = true;
+            Debug.Log("Hook Fired");
+        }
+        else
+        {
+            Debug.Log("Hook is already fired");
+        }
+
 	}
 
     // Update is called once per frame
@@ -27,18 +37,24 @@ public class GrapplingHook : MonoBehaviour
 		//if collider is not shot, shoot out collider
 
         if (hookIsFired)
-		{
-			hookOriginalPosition = transform.localPosition;
+		{            
+			
 			//if the collider is still in range of maxdistance, continue moving.
 			if (Vector3.Distance(hookOriginalPosition, transform.localPosition) < maxDistance)
 			{
 				gameObject.transform.position += gameObject.transform.forward * beamSpeed;
-			}
+                gameObject.transform.position += gameObject.transform.up * beamSpeed;
+            }
 			else //if collider goes beyond range, put it back.
 			{
 				resetHook();
 			}
 		}
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            FireHook();
+        }
     }
 
 	private void resetHook()
@@ -50,12 +66,13 @@ public class GrapplingHook : MonoBehaviour
 		
 	}
 
-	private void OnTriggerEnter(Collider colliderGameObject)
+	private void OnTriggerStay(Collider colliderGameObject)
 	{
 		if (colliderGameObject.tag == "Track")
 		{
 			RaycastHover hoverController = gameObject.transform.parent.gameObject.GetComponent<RaycastHover>();
 			hoverController.GoToHook(gameObject.transform.position, colliderGameObject.transform.gameObject);
+            Debug.Log("Hook Hit True");
 			resetHook();
 		}
 	}
