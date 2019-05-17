@@ -139,4 +139,10 @@ public class RaycastHover : MonoBehaviour
         }
     }
 
+	public void GoToHook(Vector3 pos, GameObject newTrack)
+	{
+		Debug.Log("Hit track");
+		gameObject.transform.position = pos;
+		gameObject.transform.rotation = newTrack.transform.rotation;
+	}
 }
