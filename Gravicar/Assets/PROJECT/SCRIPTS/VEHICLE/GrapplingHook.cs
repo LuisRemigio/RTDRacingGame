@@ -10,6 +10,8 @@ public class GrapplingHook : MonoBehaviour
 	[SerializeField] Vector3 hookOriginalPosition;
 	[SerializeField] GameObject gameOjbect;
 
+    float hookTimer;
+
 	// Start is called before the first frame update
 	void Start()
     {
@@ -42,8 +44,7 @@ public class GrapplingHook : MonoBehaviour
 			//if the collider is still in range of maxdistance, continue moving.
 			if (Vector3.Distance(hookOriginalPosition, transform.localPosition) < maxDistance)
 			{
-				gameObject.transform.position += gameObject.transform.forward * beamSpeed;
-                gameObject.transform.position += gameObject.transform.up * beamSpeed;
+				gameObject.transform.position += gameObject.transform.forward * beamSpeed * Time.deltaTime;       
             }
 			else //if collider goes beyond range, put it back.
 			{
@@ -55,6 +56,15 @@ public class GrapplingHook : MonoBehaviour
         {
             FireHook();
         }
+
+        if(hookTimer < 8)
+        {
+            hookTimer += Time.deltaTime;
+        }
+        else
+        {
+            resetHook();
+        }
     }
 
 	private void resetHook()
@@ -63,8 +73,9 @@ public class GrapplingHook : MonoBehaviour
 		hookIsFired = false;
 		//transform.position = transform.localPosition;
 		transform.localPosition = hookOriginalPosition;
-		
-	}
+        hookTimer = 0;
+
+    }
 
 	private void OnTriggerStay(Collider colliderGameObject)
 	{
