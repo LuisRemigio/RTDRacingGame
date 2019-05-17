@@ -5978,11 +5978,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseMenuCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 1334773999328259135, guid: 788ce7d3b67cec542879084ed3c6817c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1334773999328259075, guid: 788ce7d3b67cec542879084ed3c6817c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6088,11 +6083,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3998975650422775907, guid: 788ce7d3b67cec542879084ed3c6817c,
-        type: 3}
-      propertyPath: pause
-      value: 
-      objectReference: {fileID: 1417620846}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 788ce7d3b67cec542879084ed3c6817c, type: 3}
 --- !u!1 &1417620846 stripped
