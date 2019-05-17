@@ -44,7 +44,7 @@ public class GrapplingHook : MonoBehaviour
 			//if the collider is still in range of maxdistance, continue moving.
 			if (Vector3.Distance(hookOriginalPosition, transform.localPosition) < maxDistance)
 			{
-				gameObject.transform.position += gameObject.transform.forward * beamSpeed;       
+				gameObject.transform.position += gameObject.transform.forward * beamSpeed * Time.deltaTime;       
             }
 			else //if collider goes beyond range, put it back.
 			{
@@ -57,7 +57,7 @@ public class GrapplingHook : MonoBehaviour
             FireHook();
         }
 
-        if(hookTimer < 4)
+        if(hookTimer < 8)
         {
             hookTimer += Time.deltaTime;
         }
