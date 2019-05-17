@@ -76,7 +76,7 @@ public class AIStateMachine : MonoBehaviour
             }
             else
             {
-                moveSpeed = 15;
+                moveSpeed = 150;
             }
             Transform point = nodes[currentNode].transform;
             Vector3 dir = (point.transform.position - transform.position).normalized;
@@ -90,7 +90,9 @@ public class AIStateMachine : MonoBehaviour
             Quaternion rotation = Quaternion.LookRotation(dir, Vector3.up);
             transform.rotation = rotation;
 
-            this.gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * z, ForceMode.Force);
+            this.gameObject.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * 100);
+
+            //AddForce(transform.forward * z, ForceMode.Force);
         }
         CheckWaypointDistance();
         if (rb.velocity.magnitude > maxSpeed)
