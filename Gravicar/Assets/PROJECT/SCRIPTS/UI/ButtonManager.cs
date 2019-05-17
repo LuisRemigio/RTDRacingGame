@@ -8,10 +8,10 @@ public class ButtonManager : MonoBehaviour
 
     public GameObject pause;
     public bool paused = false;
-    public Animator menuAnim;
-    public Animator optionAnim;
-    public GameObject option;
-    public GameObject menu;
+    //public Animator menuAnim;
+    //public Animator optionAnim;
+    //public GameObject option;
+    //public GameObject menu;
 
     bool inMainMenu = false;
     Vector3 currentPosition;
@@ -40,7 +40,7 @@ public class ButtonManager : MonoBehaviour
 
     void GetOptionPosition()
     {
-        optionCurrentPosition = new Vector3(option.transform.position.x, option.transform.position.y + 2, option.transform.position.z);
+        //optionCurrentPosition = new Vector3(option.transform.position.x, option.transform.position.y + 2, option.transform.position.z);
     }
 
     void Pause()
@@ -55,7 +55,7 @@ public class ButtonManager : MonoBehaviour
 
     public void Loadlevel()
     {
-        SceneManager.LoadScene("BrianAltScene");
+        SceneManager.LoadScene("ProtoTrack");
         //pause.SetActive(true);
     }
 
@@ -63,9 +63,11 @@ public class ButtonManager : MonoBehaviour
     {
         if(paused == true)
         {
-            Time.timeScale = 1;
-            pause.SetActive(false);
+            
         }
+        pause.SetActive(false);
+        Time.timeScale = 1;
+        paused = false;
     }
 
     public void LoadOption()
@@ -118,29 +120,30 @@ public class ButtonManager : MonoBehaviour
 
     public void SetOptionActive()
     {
-        option.SetActive(true);
+        //option.SetActive(true);
     }
 
     public void SetOptionDisactive()
     {
-        option.transform.position = optionCurrentPosition;
-        option.SetActive(false);
+        //option.transform.position = optionCurrentPosition;
+        //option.SetActive(false);
     }
 
     public void BackToMainMenu()
     {
-        optionAnim.SetBool("clicked", true);
+        //optionAnim.SetBool("clicked", true);
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void SetMenuActive()
     {
-        menu.SetActive(true);
+        //menu.SetActive(true);
     }
 
     public void AnimationBool()
     {
-        menuAnim.SetBool("clicked", false);
-        optionAnim.SetBool("clicked", false);
+        //menuAnim.SetBool("clicked", false);
+        //optionAnim.SetBool("clicked", false);
     }
 
 }

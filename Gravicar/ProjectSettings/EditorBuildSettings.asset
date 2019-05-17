@@ -6,9 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Individuals/Dane/ASSETS/Scenes/Main Menu.unity
-    guid: 4f4a7077d8cb3684cb9ad7a5e088d40f
+    path: Assets/PROJECT/SCENES/FINAL/MainMenu.unity
+    guid: 2cbb36965e15bbd449068821e53b6e04
   - enabled: 1
-    path: Assets/PROJECT/SCENES/PROTOTYPES/BrianAltScene.unity
-    guid: d9f16dff36a71ff4f8c799de1ee76d77
+    path: Assets/PROJECT/SCENES/FINAL/OptionScene.unity
+    guid: 6d0b3e78e9e59624e90c0009a21fb771
+  - enabled: 1
+    path: Assets/PROJECT/SCENES/PROTOTYPES/ProtoTrack.unity
+    guid: 090c51d1e1485384fa70b6cca0a8bd71
+  - enabled: 1
+    path: Assets/PROJECT/SCENES/FINAL/CreditScene.unity
+    guid: 8fb54513a2470e9418506afb4736c9b0
   m_configObjects: {}
