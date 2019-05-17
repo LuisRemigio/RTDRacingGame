@@ -1963,10 +1963,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pause: {fileID: 343677546}
   paused: 0
-  menuAnim: {fileID: 1501938652}
-  optionAnim: {fileID: 1745861557}
-  option: {fileID: 1745861554}
-  menu: {fileID: 1501938646}
 --- !u!95 &1501938652
 Animator:
   serializedVersion: 3
@@ -2208,10 +2204,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pause: {fileID: 343677546}
   paused: 0
-  menuAnim: {fileID: 1501938652}
-  optionAnim: {fileID: 1745861557}
-  option: {fileID: 1745861554}
-  menu: {fileID: 1501938646}
 --- !u!95 &1745861557
 Animator:
   serializedVersion: 3
@@ -7248,10 +7240,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pause: {fileID: 343677546}
   paused: 0
-  menuAnim: {fileID: 1501938652}
-  optionAnim: {fileID: 1745861557}
-  option: {fileID: 1745861554}
-  menu: {fileID: 1501938646}
 --- !u!4 &2108581516
 Transform:
   m_ObjectHideFlags: 0
