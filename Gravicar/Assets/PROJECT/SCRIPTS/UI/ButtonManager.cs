@@ -25,11 +25,12 @@ public class ButtonManager : MonoBehaviour
 
     void Update()
     {
-        Pause();
+        
         if (SceneManager.GetActiveScene().name == "MainMenu")
         {
             inMainMenu = true;
         }
+        Pause();
     }
 
     void GetPosition()
@@ -47,6 +48,7 @@ public class ButtonManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && inMainMenu == false)
         {
             paused = true;
+            pause.SetActive(true);
             Time.timeScale = 0;
         }
     }
@@ -54,7 +56,7 @@ public class ButtonManager : MonoBehaviour
     public void Loadlevel()
     {
         SceneManager.LoadScene("BrianAltScene");
-        pause.SetActive(true);
+        //pause.SetActive(true);
     }
 
     public void Resume()
@@ -68,8 +70,8 @@ public class ButtonManager : MonoBehaviour
 
     public void LoadOption()
     {
-        //SceneManager.LoadScene("OptionScene");
-        menuAnim.SetBool("clicked", true);
+        SceneManager.LoadScene("OptionScene");
+        //menuAnim.SetBool("clicked", true);
     }
 
     public void LoadCredit()
@@ -140,4 +142,5 @@ public class ButtonManager : MonoBehaviour
         menuAnim.SetBool("clicked", false);
         optionAnim.SetBool("clicked", false);
     }
+
 }
