@@ -56,6 +56,7 @@ public class ButtonManager : MonoBehaviour
     public void Loadlevel()
     {
         SceneManager.LoadScene("ProtoTrack");
+        Time.timeScale = 1;
         //pause.SetActive(true);
     }
 
