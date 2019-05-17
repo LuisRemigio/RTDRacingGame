@@ -6,7 +6,7 @@ public class GrapplingHook : MonoBehaviour
 {
 	[SerializeField] float beamSpeed;
 	[SerializeField] float maxDistance;
-	[SerializeField] bool hookisFired = false;
+	[SerializeField] bool hookIsFired = false;
 	[SerializeField] Vector3 hookOriginalPosition;
 	[SerializeField] GameObject gameOjbect;
 
@@ -16,14 +16,18 @@ public class GrapplingHook : MonoBehaviour
 		
     }
 
+	public void FireHook()
+	{
+		hookIsFired = true;
+	}
+
     // Update is called once per frame
     void Update()
     {
 		//if collider is not shot, shoot out collider
 
-        if (!hookisFired)
+        if (hookIsFired)
 		{
-			hookisFired = true;
 			hookOriginalPosition = transform.localPosition;
 			//if the collider is still in range of maxdistance, continue moving.
 			if (Vector3.Distance(hookOriginalPosition, transform.localPosition) < maxDistance)
@@ -40,7 +44,7 @@ public class GrapplingHook : MonoBehaviour
 	private void resetHook()
 	{
 		//make the hook go back to it's original position.
-		hookisFired = false;
+		hookIsFired = false;
 		//transform.position = transform.localPosition;
 		transform.localPosition = hookOriginalPosition;
 		
