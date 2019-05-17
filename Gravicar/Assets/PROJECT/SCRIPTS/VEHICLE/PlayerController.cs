@@ -38,10 +38,10 @@ public class PlayerController : MonoBehaviour
 
             //var moveForce;
             // Drag Simulation
-            if (Input.GetAxis("Vertical") != 0)
-                moveForce = Input.GetAxis("Vertical") * moveSpeed;
-            else
+            if (Input.GetAxis("Vertical") == 0 || !isGrounded)
                 Mathf.SmoothDamp(moveForce, 0, ref velocity, smoothTime);
+            else if (Input.GetAxis("Vertical") != 0)
+                moveForce = Input.GetAxis("Vertical") * moveSpeed;
             if (moveForce < moveSpeed * .05f)
                 moveForce = 0;
 
@@ -53,15 +53,15 @@ public class PlayerController : MonoBehaviour
                 {
                     rb.velocity = rb.velocity * breakMod;
                 }
-                rb.AddForce(gameObject.transform.forward * moveForce, ForceMode.Acceleration);
             }
-            else
-            {
-                Debug.Log("Slowing Down");
-                lastMoveForce -= lastMoveForce * .01f;
-                Mathf.SmoothDamp(lastMoveForce, 0, ref airVelocity, 5.0f);
-                rb.AddForce(gameObject.transform.forward * lastMoveForce, ForceMode.Acceleration);
-            }
+            rb.AddForce(gameObject.transform.forward * moveForce, ForceMode.Acceleration);
+            //else
+            //{
+            //    Debug.Log("Slowing Down");
+            //    lastMoveForce -= lastMoveForce * .01f;
+            //    Mathf.SmoothDamp(lastMoveForce, 0, ref airVelocity, 5.0f);
+            //    rb.AddForce(gameObject.transform.forward * lastMoveForce, ForceMode.Acceleration);
+            //}
             rb.AddTorque(gameObject.transform.up * turnForce * torque, ForceMode.Acceleration);
             if (Input.GetKeyDown(KeyCode.W))
             {

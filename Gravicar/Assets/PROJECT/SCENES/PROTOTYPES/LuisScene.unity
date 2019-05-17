@@ -1906,6 +1906,9 @@ MonoBehaviour:
   breakMod: 0.98
   canInput: 1
   isGrounded: 0
+  moveForce: 0
+  lastMoveForce: 0
+  smoothTime: 1
 --- !u!54 &1346890662
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3772,6 +3775,9 @@ MonoBehaviour:
   breakMod: 0.98
   canInput: 1
   isGrounded: 1
+  moveForce: 0
+  lastMoveForce: 0
+  smoothTime: 1
 --- !u!54 &1806607837
 Rigidbody:
   m_ObjectHideFlags: 0
