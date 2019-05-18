@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     public float breakMod = .98f;
     public bool canInput;
     public bool isGrounded;
+    [SerializeField] GameObject fCamera;
+    [SerializeField] GameObject rCamera;
 
     void Start()
     {
@@ -49,8 +51,27 @@ public class PlayerController : MonoBehaviour
                 Mathf.SmoothDamp(moveForce, 0, ref velocity, smoothTime);
             else if (Input.GetAxis("Vertical") != 0)
                 moveForce = Input.GetAxis("Vertical") * moveSpeed;
-            if (moveForce < moveSpeed * .05f)
+            if (moveForce < moveSpeed * .05f && moveForce > moveSpeed * -.05f)
                 moveForce = 0;
+
+            // Rear Camera Switch
+
+            // Reversing based switching
+            //float velAngle = Vector3.Angle(gameObject.GetComponent<Rigidbody>().velocity, gameObject.transform.forward);
+            //if (Input.GetAxis("Vertical") == -1 && velAngle > 100)
+
+
+            // Manual switching
+            if (Input.GetAxis("Camera") == 1)
+            {
+                rCamera.SetActive(true);
+                fCamera.SetActive(false);
+            }
+            else if(Input.GetAxis("Camera") == 0)
+            {
+                rCamera.SetActive(false);
+                fCamera.SetActive(true);
+            }
 
             // Preventing airborne acceleration
             if (isGrounded)
