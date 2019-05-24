@@ -17,10 +17,13 @@ public class ButtonManager : MonoBehaviour
     Vector3 currentPosition;
     Vector3 optionCurrentPosition;
 
+    ArtificialGravity artificialGravity;
+
     void Awake()
     {
         GetPosition();
         GetOptionPosition();
+        artificialGravity = FindObjectOfType<ArtificialGravity>().GetComponent<ArtificialGravity>();
     }
 
     void Update()
@@ -49,6 +52,7 @@ public class ButtonManager : MonoBehaviour
         {
             paused = true;
             pause.SetActive(true);
+            artificialGravity.enabled = false;
             Time.timeScale = 0;
         }
     }
@@ -68,6 +72,7 @@ public class ButtonManager : MonoBehaviour
         }
         pause.SetActive(false);
         Time.timeScale = 1;
+        artificialGravity.enabled = true;
         paused = false;
     }
 
