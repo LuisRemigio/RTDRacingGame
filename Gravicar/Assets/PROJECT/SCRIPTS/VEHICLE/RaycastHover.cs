@@ -12,8 +12,11 @@ public class RaycastHover : MonoBehaviour
     PlayerController controller;
     int mask = 1 << 10;
     [SerializeField] float rayRange = 10.0f;
+    [SerializeField] float feelerRange = 15.0f;
     [SerializeField] float maxRayRange = 70.0f;
-    [SerializeField] List<Transform> hoverRaycastOrigins;
+    [SerializeField] List<Transform> feelerOrigins;
+    [Tooltip("Should be the same size and order as feelers")]
+    [SerializeField] List<Transform> hoverOrigins;
     [SerializeField] Transform centerOfVehicle;
     [SerializeField] float hoverHeight = 8.0f;
     [SerializeField] bool physicsBased = false;
@@ -32,6 +35,7 @@ public class RaycastHover : MonoBehaviour
         flipperRaycast = gameObject.transform;
         artGrav = gameObject.GetComponent<ArtificialGravity>();
         controller = gameObject.GetComponent<PlayerController>();
+        //feelerOrigins.Capacity = hoverOrigins.Count;
     }
 
     // Update is called once per frame
@@ -40,9 +44,9 @@ public class RaycastHover : MonoBehaviour
         raycastDirection = -gameObject.transform.up;
         RaycastHit hit;
         // Checks if the vehicle is grounded
-        for (int i = 0; i < hoverRaycastOrigins.Count; i++)
+        for (int i = 0; i < hoverOrigins.Count; i++)
         {
-            if (!Physics.Raycast(hoverRaycastOrigins[i].position, raycastDirection, out hit, rayRange + 2.0f, mask))
+            if (!Physics.Raycast(hoverOrigins[i].position, raycastDirection, out hit, rayRange + 2.0f, mask))
             {
                 controller.setGrounded(false);
                 artGrav.setGrounded(false);
@@ -52,24 +56,37 @@ public class RaycastHover : MonoBehaviour
             artGrav.setGrounded(true);
         }
         // Hovering functionality
-        for (int i = 0; i < hoverRaycastOrigins.Count; i++)
+        if (feelerOrigins.Count != hoverOrigins.Count)
+        {
+            Debug.Log("Feelers and Hovers don't match");
+            return;
+        }
+        for (int i = 0; i < feelerOrigins.Count; i++)
         {
             // Checks for ground
-            if (Physics.Raycast(hoverRaycastOrigins[i].position, raycastDirection, out hit, maxRayRange, mask))
+            if (Physics.Raycast(hoverOrigins[i].position, raycastDirection, out hit, maxRayRange, mask))
             {
                 artGrav.setCollider(hit.collider.gameObject.GetComponentsInChildren<Transform>()[1].gameObject);
             }
             // Checks for within hover distance
-            if (Physics.Raycast(hoverRaycastOrigins[i].position, raycastDirection, out hit, rayRange, mask))
+            if (Physics.Raycast(feelerOrigins[i].position, raycastDirection, out hit, feelerRange, mask))
             {
-                Debug.DrawRay(hoverRaycastOrigins[i].position, raycastDirection * hit.distance, Color.yellow);
-                Debug.Log("Did Hit");
+                Debug.DrawRay(hoverOrigins[i].position, raycastDirection * hit.distance, Color.yellow);
+                Debug.DrawRay(feelerOrigins[i].position, raycastDirection * hit.distance, Color.green);
+                if (i == 0)
+                    Debug.Log("Did Hit Left");
+                if (i == 1)
+                    Debug.Log("Did Hit Right");
+                if (i == 2)
+                    Debug.Log("Did Hit Front");
+                if (i == 3)
+                    Debug.Log("Did Hit Back");
 
                 // Physics-based hovering
                 if (physicsBased)
                 {
                     artGrav.setPhysics(true);
-                    body.AddForceAtPosition(-raycastDirection * body.mass * (hoverForce * (1 - (hit.distance / rayRange))), hoverRaycastOrigins[i].position);
+                    body.AddForceAtPosition(-raycastDirection * body.mass * (hoverForce * (1 - (hit.distance / rayRange))), hoverOrigins[i].position);
                     //if (hit.distance < rayRange && hit.distance > rayRange - .5f)
                     //{
                     //    body.AddForceAtPosition(-raycastDirection * body.mass * stabilizeForce, hoverRaycastOrigins[i].position);
@@ -118,7 +135,7 @@ public class RaycastHover : MonoBehaviour
         // Vehicle flip code
         if (Physics.Raycast(flipperRaycast.position, -raycastDirection, out hit, rayRange, mask))
         {
-            body.AddForceAtPosition(raycastDirection * body.mass * flipForce, hoverRaycastOrigins[0].position);
+            body.AddForceAtPosition(raycastDirection * body.mass * flipForce, hoverOrigins[0].position);
         }
 
     }
@@ -139,10 +156,10 @@ public class RaycastHover : MonoBehaviour
         }
     }
 
-	public void GoToHook(Vector3 pos, GameObject newTrack)
-	{
-		Debug.Log("Hit track");
-		gameObject.transform.position = pos;
-		gameObject.transform.rotation = newTrack.transform.rotation;
-	}
+    public void GoToHook(Vector3 pos, GameObject newTrack)
+    {
+        Debug.Log("Hit track");
+        gameObject.transform.position = pos;
+        gameObject.transform.rotation = newTrack.transform.rotation;
+    }
 }

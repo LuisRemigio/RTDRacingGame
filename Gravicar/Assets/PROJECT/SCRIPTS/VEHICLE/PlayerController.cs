@@ -7,9 +7,10 @@ public class PlayerController : MonoBehaviour
     public float turnSpeed;
     public float moveSpeed;
     public float maxSpeed;
-    public float torque = 70;
+    private float torque = 70;
     Rigidbody rb;
     public float breakMod = .98f;
+    [SerializeField] float accelMod = 1.0f;
     public bool canInput;
     public bool isGrounded;
     [SerializeField] GameObject fCamera;
@@ -54,7 +55,7 @@ public class PlayerController : MonoBehaviour
             //if (Input.GetAxis("Vertical") == -1 && velAngle > 100)
 
 
-            // Manual switching
+            // Manual rear camera switching
             if (Input.GetAxis("Camera") == 1)
             {
                 rCamera.SetActive(true);
@@ -75,7 +76,8 @@ public class PlayerController : MonoBehaviour
                     rb.velocity = rb.velocity * breakMod;
                 }
             }
-            rb.AddForce(gameObject.transform.forward * moveForce, ForceMode.Acceleration);
+            //rb.AddForce(gameObject.transform.forward * moveForce, ForceMode.Acceleration);
+            rb.velocity += gameObject.transform.forward * moveForce * (Time.fixedDeltaTime * accelMod);
             //else
             //{
             //    Debug.Log("Slowing Down");
@@ -83,7 +85,9 @@ public class PlayerController : MonoBehaviour
             //    Mathf.SmoothDamp(lastMoveForce, 0, ref airVelocity, 5.0f);
             //    rb.AddForce(gameObject.transform.forward * lastMoveForce, ForceMode.Acceleration);
             //}
+            // Turning
             rb.AddTorque(gameObject.transform.up * turnForce * torque, ForceMode.Acceleration);
+
             if (Input.GetKeyDown(KeyCode.W))
             {
                 //Engine sound
