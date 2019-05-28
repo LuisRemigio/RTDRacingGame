@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class AIStop : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public AIStateMachine move;
+    public float brakePower;
+
+    void OnTriggerEnter(Collider other)
     {
-        
+        if (other.GetComponent<AIMove>() != null)
+        {
+            move.brake = true;
+            move.brakeSpeed = brakePower;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnTriggerExit(Collider other)
     {
-        
+        if (other.GetComponent<AIMove>() != null)
+        {
+            move.brake = false;
+        }
     }
 }
