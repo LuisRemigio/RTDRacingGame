@@ -7,11 +7,14 @@ public class PlayerController : MonoBehaviour
     public float turnSpeed;
     public float moveSpeed;
     public float maxSpeed;
-    public float torque = 70;
+    private float torque = 70;
     Rigidbody rb;
     public float breakMod = .98f;
+    [SerializeField] float accelMod = 1.0f;
     public bool canInput;
     public bool isGrounded;
+    [SerializeField] GameObject fCamera;
+    [SerializeField] GameObject rCamera;
 
     void Start()
     {
@@ -38,12 +41,31 @@ public class PlayerController : MonoBehaviour
 
             //var moveForce;
             // Drag Simulation
-            if (Input.GetAxis("Vertical") != 0)
-                moveForce = Input.GetAxis("Vertical") * moveSpeed;
-            else
+            if (Input.GetAxis("Vertical") == 0 || !isGrounded)
                 Mathf.SmoothDamp(moveForce, 0, ref velocity, smoothTime);
-            if (moveForce < moveSpeed * .05f)
+            else if (Input.GetAxis("Vertical") != 0)
+                moveForce = Input.GetAxis("Vertical") * moveSpeed;
+            if (moveForce < moveSpeed * .05f && moveForce > moveSpeed * -.05f)
                 moveForce = 0;
+
+            // Rear Camera Switch
+
+            // Reversing based switching
+            //float velAngle = Vector3.Angle(gameObject.GetComponent<Rigidbody>().velocity, gameObject.transform.forward);
+            //if (Input.GetAxis("Vertical") == -1 && velAngle > 100)
+
+
+            // Manual rear camera switching
+            if (Input.GetAxis("Camera") == 1)
+            {
+                rCamera.SetActive(true);
+                fCamera.SetActive(false);
+            }
+            else if(Input.GetAxis("Camera") == 0)
+            {
+                rCamera.SetActive(false);
+                fCamera.SetActive(true);
+            }
 
             // Preventing airborne acceleration
             if (isGrounded)
@@ -53,16 +75,19 @@ public class PlayerController : MonoBehaviour
                 {
                     rb.velocity = rb.velocity * breakMod;
                 }
-                rb.AddForce(gameObject.transform.forward * moveForce, ForceMode.Acceleration);
             }
-            else
-            {
-                Debug.Log("Slowing Down");
-                lastMoveForce -= lastMoveForce * .01f;
-                Mathf.SmoothDamp(lastMoveForce, 0, ref airVelocity, 5.0f);
-                rb.AddForce(gameObject.transform.forward * lastMoveForce, ForceMode.Acceleration);
-            }
+            //rb.AddForce(gameObject.transform.forward * moveForce, ForceMode.Acceleration);
+            rb.velocity += gameObject.transform.forward * moveForce * (Time.fixedDeltaTime * accelMod);
+            //else
+            //{
+            //    Debug.Log("Slowing Down");
+            //    lastMoveForce -= lastMoveForce * .01f;
+            //    Mathf.SmoothDamp(lastMoveForce, 0, ref airVelocity, 5.0f);
+            //    rb.AddForce(gameObject.transform.forward * lastMoveForce, ForceMode.Acceleration);
+            //}
+            // Turning
             rb.AddTorque(gameObject.transform.up * turnForce * torque, ForceMode.Acceleration);
+
             if (Input.GetKeyDown(KeyCode.W))
             {
                 //Engine sound

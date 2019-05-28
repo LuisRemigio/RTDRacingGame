@@ -10,6 +10,7 @@ public class ArtificialGravity : MonoBehaviour
     [SerializeField] bool isGrounded;
     Vector3 velocity;
     bool physicsBased;
+
     // Update is called once per frame
     void Update()
     {
