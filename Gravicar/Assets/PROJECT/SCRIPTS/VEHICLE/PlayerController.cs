@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody rb;
     public float breakMod = .98f;
     [SerializeField] float accelMod = 1.0f;
+    float torqueMod = 1.0f;
     public bool canInput;
     public bool isGrounded;
     [SerializeField] GameObject fCamera;
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = this.gameObject.GetComponent<Rigidbody>();
         //canInput = false;
+        torque *= torqueMod;
     }
 
 
@@ -116,5 +118,15 @@ public class PlayerController : MonoBehaviour
     public void setGrounded(bool grounded)
     {
         isGrounded = grounded;
+    }
+
+    public void setTorque(float torque)
+    {
+        torqueMod = torque;
+    }
+
+    public void setAccel(float accel)
+    {
+        accelMod = accel;
     }
 }

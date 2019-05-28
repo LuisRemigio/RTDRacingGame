@@ -162,4 +162,28 @@ public class RaycastHover : MonoBehaviour
         gameObject.transform.position = pos;
         gameObject.transform.rotation = newTrack.transform.rotation;
     }
+
+
+    // Setters
+    public void setHoverForce(float force)
+    {
+        hoverForce = force;
+    }
+
+    public void setFeelerRange(float range)
+    {
+        feelerRange = range;
+    }
+
+    public void setRayRange(float range)
+    {
+        rayRange = range;
+    }
+
+    public void setMaxRayRange(float range)
+    {
+        maxRayRange = range;
+    }
+
+
 }
