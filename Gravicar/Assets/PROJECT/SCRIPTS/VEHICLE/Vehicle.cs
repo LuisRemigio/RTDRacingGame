@@ -11,8 +11,9 @@ public class Vehicle : MonoBehaviour
     int m_totalLaps = 0;
     int m_currentLap = 0;
     float m_maxSpeed = 300;
-
-    bool isPlayer = false;
+	[SerializeField] List<GameObject> nextCheckpoints;
+	[SerializeField] List<GameObject> prevCheckpoints;
+	bool isPlayer = false;
 
     // Serialized Fields
     [Tooltip("At least a size of 4 (Left, Right, Front, Back)")]
@@ -107,4 +108,10 @@ public class Vehicle : MonoBehaviour
     {
         isPlayer = whatIs;
     }
+
+	public void resetVehicle()
+	{
+		GameObject prevCP = prevCheckpoints[prevCheckpoints.Count - 1];
+		gameObject.transform.SetPositionAndRotation(prevCP.transform.position, prevCP.transform.rotation);
+	}
 }
