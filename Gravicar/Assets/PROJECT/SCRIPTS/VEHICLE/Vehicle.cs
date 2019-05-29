@@ -119,4 +119,24 @@ public class Vehicle : MonoBehaviour
 	{
 		return nextCheckpoints[0];
 	}
+
+    public void updateCheckpoints(GameObject checkpoint)
+    {
+        for (int i = 0; i < nextCheckpoints.Count; i++)
+        {
+            if (nextCheckpoints[i] == checkpoint)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    prevCheckpoints.Add(nextCheckpoints[j]);
+                }
+                break;
+            }
+        }
+    }
+
+    public void resetCheckpoints()
+    {
+        nextCheckpoints = prevCheckpoints;
+    }
 }
