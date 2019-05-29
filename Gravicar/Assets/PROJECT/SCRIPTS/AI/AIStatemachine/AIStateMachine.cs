@@ -27,7 +27,7 @@ public class AIStateMachine : MonoBehaviour
 
     void Awake()
     {
-        index = Random.Range(0, pathGroup.Length);
+        index = Random.Range(0, pathGroup.Length - 1);
         rb = gameObject.GetComponent<Rigidbody>();
 
         Transform[] pathTransforms = pathGroup[index].GetComponentsInChildren<Transform>();
@@ -45,10 +45,10 @@ public class AIStateMachine : MonoBehaviour
         stateMachine.ChangeState(AIIdleState.Instance);
     }
 
-    void Start()
-    {
-        
-    }
+    //void Start()
+    //{
+    //    
+    //}
 
     void CheckWaypointDistance()
     {
