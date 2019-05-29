@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class AIStop : MonoBehaviour
 {
-    public AIStateMachine move;
+    //public AIStateMachine move;
     public float brakePower;
 
     void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<AIStateMachine>() != null)
         {
-            move.brake = true;
-            move.speed = brakePower;
+            other.GetComponent<AIStateMachine>().brake = true;
+            other.GetComponent<AIStateMachine>().speed = brakePower;
             Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         }
     }
@@ -21,8 +21,8 @@ public class AIStop : MonoBehaviour
     {
         if (other.GetComponent<AIStateMachine>() != null)
         {
-            move.brake = false;
-            move.speed = 100;
+            other.GetComponent<AIStateMachine>().brake = false;
+            other.GetComponent<AIStateMachine>().speed = 100;
         }
     }
 }
