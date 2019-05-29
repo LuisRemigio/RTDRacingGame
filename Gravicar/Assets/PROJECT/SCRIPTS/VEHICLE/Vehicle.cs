@@ -114,4 +114,9 @@ public class Vehicle : MonoBehaviour
 		GameObject prevCP = prevCheckpoints[prevCheckpoints.Count - 1];
 		gameObject.transform.SetPositionAndRotation(prevCP.transform.position, prevCP.transform.rotation);
 	}
+
+	public GameObject getNextCheckpoint()
+	{
+		return nextCheckpoints[0];
+	}
 }
