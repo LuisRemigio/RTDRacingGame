@@ -77,7 +77,7 @@ public class AIStateMachine : MonoBehaviour
             }
             else
             {
-                moveSpeed = speed;
+                moveSpeed = 100;
             }
             Transform point = nodes[currentNode].transform;
             Vector3 dir = (point.transform.position - transform.position).normalized;
@@ -86,7 +86,7 @@ public class AIStateMachine : MonoBehaviour
             //Debug.Log("Dot:" + direction);
 
 
-            float z = moveSpeed;
+            //float z = moveSpeed;
 
             Quaternion rotation = Quaternion.LookRotation(dir, Vector3.up);
             transform.rotation = rotation;
