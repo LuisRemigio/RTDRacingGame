@@ -8,11 +8,12 @@ public class AIStateMachine : MonoBehaviour
 {
     public StateMachine<AIStateMachine> stateMachine { get; set; }
 
-    public float turnSpeed;
+    //public float turnSpeed;
+    public float speed;
     public float moveSpeed;
     public float maxSpeed;
     public GameObject[] pathGroup;
-    public float pointL = 10f;
+    public float pointL;
     public int currentNode = 0;
     public bool brake = false;
     public float brakeSpeed;
@@ -27,7 +28,7 @@ public class AIStateMachine : MonoBehaviour
 
     void Awake()
     {
-        index = Random.Range(0, pathGroup.Length);
+        index = Random.Range(0, pathGroup.Length - 1);
         rb = gameObject.GetComponent<Rigidbody>();
 
         Transform[] pathTransforms = pathGroup[index].GetComponentsInChildren<Transform>();
@@ -45,10 +46,10 @@ public class AIStateMachine : MonoBehaviour
         stateMachine.ChangeState(AIIdleState.Instance);
     }
 
-    void Start()
-    {
-        
-    }
+    //void Start()
+    //{
+    //    
+    //}
 
     void CheckWaypointDistance()
     {
@@ -71,12 +72,12 @@ public class AIStateMachine : MonoBehaviour
         {
             if (brake == true)
             {
-                moveSpeed = brakeSpeed;
+                moveSpeed = -brakeSpeed;
                 Debug.Log("Brake");
             }
             else
             {
-                moveSpeed = 150;
+                moveSpeed = 100;
             }
             Transform point = nodes[currentNode].transform;
             Vector3 dir = (point.transform.position - transform.position).normalized;
@@ -85,12 +86,12 @@ public class AIStateMachine : MonoBehaviour
             //Debug.Log("Dot:" + direction);
 
 
-            float z = moveSpeed;
+            //float z = moveSpeed;
 
             Quaternion rotation = Quaternion.LookRotation(dir, Vector3.up);
             transform.rotation = rotation;
 
-            this.gameObject.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * 100);
+            this.gameObject.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * speed, ForceMode.Acceleration);
 
             //AddForce(transform.forward * z, ForceMode.Force);
         }
