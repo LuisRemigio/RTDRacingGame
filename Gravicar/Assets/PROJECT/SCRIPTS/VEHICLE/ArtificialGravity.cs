@@ -48,4 +48,9 @@ public class ArtificialGravity : MonoBehaviour
     {
         physicsBased = phys;
     }
+
+    public void setComponent(float comp)
+    {
+        gravityComponent = comp;
+    }
 }

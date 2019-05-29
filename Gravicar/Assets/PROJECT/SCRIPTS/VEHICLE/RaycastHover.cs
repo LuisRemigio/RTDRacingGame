@@ -162,4 +162,61 @@ public class RaycastHover : MonoBehaviour
         gameObject.transform.position = pos;
         gameObject.transform.rotation = newTrack.transform.rotation;
     }
+
+
+    // Setters
+    public void setHoverForce(float force)
+    {
+        hoverForce = force;
+    }
+
+    public void setFeelerRange(float range)
+    {
+        feelerRange = range;
+    }
+
+    public void setRayRange(float range)
+    {
+        rayRange = range;
+    }
+
+    public void setMaxRayRange(float range)
+    {
+        maxRayRange = range;
+    }
+
+    public void setFeelers(List<Transform> feels)
+    {
+        feelerOrigins = feels;
+    }
+
+    public void setHovers(List<Transform> hovers)
+    {
+        hoverOrigins = hovers;
+    }
+
+    public void setStabilizationRange(float range)
+    {
+        stabilizingRange = range;
+    }
+
+    public void setStabilizationForce(float force)
+    {
+        stabilizeForce = force;
+    }
+
+    public void setClampingSpeed(float speed)
+    {
+        clampingSpeed = speed;
+    }
+
+    public void setFlipForce(float force)
+    {
+        flipForce = force;
+    }
+    
+    public void setCenter(Transform COV)
+    {
+        centerOfVehicle = COV;
+    }
 }
