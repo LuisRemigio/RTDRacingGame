@@ -28,7 +28,7 @@ public class AIStateMachine : MonoBehaviour
 
     void Awake()
     {
-        index = Random.Range(0, pathGroup.Length - 1);
+        index = Random.Range(0, pathGroup.Length);
         rb = gameObject.GetComponent<Rigidbody>();
 
         Transform[] pathTransforms = pathGroup[index].GetComponentsInChildren<Transform>();
