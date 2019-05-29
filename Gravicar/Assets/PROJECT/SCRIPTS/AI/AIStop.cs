@@ -9,18 +9,20 @@ public class AIStop : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<AIMove>() != null)
+        if (other.GetComponent<AIStateMachine>() != null)
         {
             move.brake = true;
-            move.brakeSpeed = brakePower;
+            move.speed = brakePower;
+            Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        if (other.GetComponent<AIMove>() != null)
+        if (other.GetComponent<AIStateMachine>() != null)
         {
             move.brake = false;
+            move.speed = 100;
         }
     }
 }
