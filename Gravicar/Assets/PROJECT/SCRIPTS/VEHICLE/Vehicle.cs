@@ -6,6 +6,7 @@ public class Vehicle : MonoBehaviour
 {
     ArtificialGravity m_artGrav;
     PlayerController m_controller;
+    AIStateMachine m_AI;
     RaycastHover m_hover;
     int m_totalLaps = 0;
     int m_currentLap = 0;
@@ -78,6 +79,7 @@ public class Vehicle : MonoBehaviour
         }
         else
         {
+            m_AI = gameObject.AddComponent(typeof(AIStateMachine)) as AIStateMachine;
 
         }
     }
