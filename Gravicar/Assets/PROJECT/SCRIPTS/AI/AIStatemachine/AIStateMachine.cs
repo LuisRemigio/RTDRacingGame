@@ -88,7 +88,7 @@ public class AIStateMachine : MonoBehaviour
 
             //float z = moveSpeed;
 
-            Quaternion rotation = Quaternion.LookRotation(dir, Vector3.up);
+            Quaternion rotation = Quaternion.LookRotation(dir, transform.up);
             transform.rotation = rotation;
 
             this.gameObject.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * speed, ForceMode.Acceleration);
