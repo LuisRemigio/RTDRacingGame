@@ -8,11 +8,12 @@ public class AIStateMachine : MonoBehaviour
 {
     public StateMachine<AIStateMachine> stateMachine { get; set; }
 
-    public float turnSpeed;
+    //public float turnSpeed;
+    public float speed;
     public float moveSpeed;
     public float maxSpeed;
     public GameObject[] pathGroup;
-    public float pointL = 10f;
+    public float pointL;
     public int currentNode = 0;
     public bool brake = false;
     public float brakeSpeed;
@@ -71,12 +72,12 @@ public class AIStateMachine : MonoBehaviour
         {
             if (brake == true)
             {
-                moveSpeed = brakeSpeed;
+                moveSpeed = -brakeSpeed;
                 Debug.Log("Brake");
             }
             else
             {
-                moveSpeed = 150;
+                moveSpeed = speed;
             }
             Transform point = nodes[currentNode].transform;
             Vector3 dir = (point.transform.position - transform.position).normalized;
@@ -90,7 +91,7 @@ public class AIStateMachine : MonoBehaviour
             Quaternion rotation = Quaternion.LookRotation(dir, Vector3.up);
             transform.rotation = rotation;
 
-            this.gameObject.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * 100);
+            this.gameObject.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * speed, ForceMode.Acceleration);
 
             //AddForce(transform.forward * z, ForceMode.Force);
         }

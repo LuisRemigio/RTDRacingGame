@@ -20,9 +20,10 @@ GameObject:
   - component: {fileID: 6627634399013851517}
   - component: {fileID: 6627634399013851516}
   - component: {fileID: 6627634399013851509}
+  - component: {fileID: 1919316485}
   m_Layer: 8
   m_Name: AIVehicle
-  m_TagString: Vehicle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34,7 +35,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2944223074171359317}
-  m_LocalRotation: {x: -0, y: -0.65643054, z: -0, w: 0.7543865}
+  m_LocalRotation: {x: 0, y: -0.6564278, z: 0, w: 0.75438887}
   m_LocalPosition: {x: -126.7, y: -125.1, z: -105.9}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children:
@@ -45,7 +46,7 @@ Transform:
   - {fileID: 6627634399933061511}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -82.05601, z: 0}
 --- !u!33 &7195525349582035056
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -197,7 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 6627634399013851513}
-  frictionPercentage: 100
+  frictionPercentage: 10
 --- !u!114 &6627634399013851517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,9 +249,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef1872f476c34634bb65c520e7929d2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnSpeed: 0
-  moveSpeed: 0
-  maxSpeed: 0
+  turnSpeed: 7
+  moveSpeed: 250
+  maxSpeed: 250
   breakMod: 0.98
   accelMod: 1
   canInput: 0
@@ -260,6 +261,30 @@ MonoBehaviour:
   moveForce: 0
   lastMoveForce: 0
   smoothTime: 1
+--- !u!114 &1919316485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2944223074171359317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c95a80aeb6e10674299c833621941a89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 200
+  moveSpeed: 200
+  maxSpeed: 250
+  pathGroup:
+  - {fileID: 0}
+  pointL: 130
+  currentNode: 0
+  brake: 0
+  brakeSpeed: 0
+  startTimer: 3.5
+  canInput: 0
+  flip: 0
 --- !u!1 &6627634399254571545
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,7 +295,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6627634399254571547}
   - component: {fileID: 6627634399254571544}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: Default_Spotlight_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -543,7 +568,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6627634399933061511}
   - component: {fileID: 6627634399933061510}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: Default_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -739,7 +764,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6627634400019512511}
   - component: {fileID: 6627634400019512508}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: Default_Spotlight_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -830,7 +855,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6627634400262900876}
   - component: {fileID: 6627634400262900879}
-  m_Layer: 1
+  m_Layer: 8
   m_Name: Default_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
