@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float turnSpeed;
-    public float moveSpeed;
-    public float maxSpeed;
-    private float torque = 70;
-    Rigidbody rb;
-    public float breakMod = .98f;
-    [SerializeField] float accelMod = 1.0f;
+    float turnSpeed;
+    float moveSpeed;
+    float maxSpeed;
+    float torque = 70;
+    float breakMod = .98f;
+    float accelMod = 1.0f;
+    float torqueMod = 1.0f;
     public bool canInput;
     public bool isGrounded;
+    Rigidbody rb;
     [SerializeField] GameObject fCamera;
     [SerializeField] GameObject rCamera;
 
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = this.gameObject.GetComponent<Rigidbody>();
         //canInput = false;
+        torque *= torqueMod;
     }
 
 
@@ -41,7 +43,7 @@ public class PlayerController : MonoBehaviour
 
             //var moveForce;
             // Drag Simulation
-            if (Input.GetAxis("Vertical") == 0 || !isGrounded)
+            if (Input.GetAxis("Vertical") <= 0 || !isGrounded)
                 Mathf.SmoothDamp(moveForce, 0, ref velocity, smoothTime);
             else if (Input.GetAxis("Vertical") != 0)
                 moveForce = Input.GetAxis("Vertical") * moveSpeed;
@@ -116,5 +118,40 @@ public class PlayerController : MonoBehaviour
     public void setGrounded(bool grounded)
     {
         isGrounded = grounded;
+    }
+
+    public void setTurnSpeed(float speed)
+    {
+        turnSpeed = speed;
+    }
+
+    public void setTorqueMod(float modifier)
+    {
+        torqueMod = modifier;
+    }
+
+    public void setMoveSpeed(float speed)
+    {
+        moveSpeed = speed;
+    }
+
+    public void setMaxSpeed(float max)
+    {
+        maxSpeed = max;
+    }
+
+    public void setBreakMod(float modifier)
+    {
+        breakMod = modifier;
+    }
+
+    public void setAccelerationMod(float modifier)
+    {
+        accelMod = modifier;
+    }
+
+    public void setInput(bool _canInput)
+    {
+        canInput = _canInput;
     }
 }
