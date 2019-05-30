@@ -98,6 +98,7 @@ public class PlayerController : MonoBehaviour
             if (isGrounded)
             {
                 lastMoveForce = moveForce;
+				resetTime = 0.0f;
                 if (Input.GetKey(KeyCode.Space))
                 {
                     rb.velocity *= breakMod;
