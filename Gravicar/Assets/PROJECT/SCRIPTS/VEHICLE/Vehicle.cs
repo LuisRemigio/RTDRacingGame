@@ -11,8 +11,10 @@ public class Vehicle : MonoBehaviour
     int m_totalLaps = 0;
     int m_currentLap = 0;
     float m_maxSpeed = 300;
-
-    bool isPlayer = false;
+	[SerializeField] List<GameObject> nextCheckpoints;
+	[SerializeField] List<GameObject> prevCheckpoints;
+	[SerializeField] bool isPlayer = false;
+    [SerializeField] GameObject vehicleCamera;
 
     // Serialized Fields
     [Tooltip("At least a size of 4 (Left, Right, Front, Back)")]
@@ -65,17 +67,20 @@ public class Vehicle : MonoBehaviour
         m_hover.setStabilizationForce(m_stabilizeForce);
         m_hover.setClampingSpeed(m_clampingSpeed);
         m_hover.setFlipForce(m_flipForce);
+        
 
         // Player Controller creation
         if (isPlayer)
         {
             m_controller = gameObject.AddComponent(typeof(PlayerController)) as PlayerController;
             m_controller.setTurnSpeed(m_turnSpeed);
+            m_controller.setMoveSpeed(m_moveSpeed);
             m_controller.setTorqueMod(m_torqueMod);
             m_controller.setBreakMod(m_breakMod);
             m_controller.setAccelerationMod(m_accelMod);
             m_controller.setMaxSpeed(m_maxSpeed);
             m_controller.setInput(true);
+            SetCameras();
         }
         else
         {
@@ -106,5 +111,42 @@ public class Vehicle : MonoBehaviour
     public void setPlayer(bool whatIs)
     {
         isPlayer = whatIs;
+    }
+
+	public void resetVehicle()
+	{
+		GameObject prevCP = prevCheckpoints[prevCheckpoints.Count - 1];
+		gameObject.transform.SetPositionAndRotation(prevCP.transform.position, prevCP.transform.rotation);
+	}
+
+	public GameObject getNextCheckpoint()
+	{
+		return nextCheckpoints[0];
+	}
+
+    public void updateCheckpoints(GameObject checkpoint)
+    {
+        for (int i = 0; i < nextCheckpoints.Count; i++)
+        {
+            if (nextCheckpoints[i] == checkpoint)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    prevCheckpoints.Add(nextCheckpoints[j]);
+                }
+                break;
+            }
+        }
+    }
+
+    public void resetCheckpoints()
+    {
+        nextCheckpoints = prevCheckpoints;
+    }
+
+    void SetCameras()
+    {
+        Instantiate(vehicleCamera, transform);
+        m_controller.PlugCameras(vehicleCamera.transform.GetChild(0).gameObject, vehicleCamera.transform.GetChild(1).gameObject);
     }
 }
