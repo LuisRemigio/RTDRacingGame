@@ -56,7 +56,7 @@ void Update()
         {
             thrusterLine.enabled = true;
             thrusterLine.numCapVertices = 15;
-            myImage.fillAmount -= speed / 1 * Time.deltaTime;
+            //myImage.fillAmount -= speed / 1 * Time.deltaTime;
 
         }
 
