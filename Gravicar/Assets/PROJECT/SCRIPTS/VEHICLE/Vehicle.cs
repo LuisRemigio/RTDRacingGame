@@ -8,7 +8,7 @@ public class Vehicle : MonoBehaviour
     PlayerController m_controller;
     AIStateMachine m_AI;
     RaycastHover m_hover;
-    int m_totalLaps = 0;
+    [SerializeField] int m_totalLaps = 1;
     int m_currentLap = 0;
     float m_maxSpeed = 300;
 	[SerializeField] List<GameObject> nextCheckpoints;

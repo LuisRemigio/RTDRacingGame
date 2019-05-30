@@ -4,23 +4,17 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
-    
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    protected float firstAcrossTime = 0.0f;
+    protected float distanceFromFirst = 0.0f;
+    protected Vehicle v;
     // Update speed
-    void OnTriggerEnter(Collider c)
+    protected void OnTriggerEnter(Collider c)
     {
-
+        if (c.gameObject.GetComponent<Vehicle>() != null)
+        {
+            v = c.gameObject.GetComponent<Vehicle>();
+            v.updateCheckpoints(gameObject);
+        }
     }
 }
