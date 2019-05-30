@@ -11,6 +11,8 @@ public class Vehicle : MonoBehaviour
     int m_totalLaps = 0;
     int m_currentLap = 0;
     float m_maxSpeed = 300;
+	Vector3 m_startPosition;
+	Quaternion m_startRotation;
 	[SerializeField] List<GameObject> nextCheckpoints;
 	[SerializeField] List<GameObject> prevCheckpoints;
 	[SerializeField] bool isPlayer = false;
@@ -50,8 +52,10 @@ public class Vehicle : MonoBehaviour
     void Start()
     {
         CenterOfVehicle = gameObject.transform;
-        // Artificial gravity creation
-        m_artGrav = gameObject.AddComponent(typeof(ArtificialGravity)) as ArtificialGravity;
+		m_startPosition = gameObject.transform.position;
+		m_startRotation = gameObject.transform.rotation;
+		// Artificial gravity creation
+		m_artGrav = gameObject.AddComponent(typeof(ArtificialGravity)) as ArtificialGravity;
         m_artGrav.setComponent(m_gravComponent);
 
         // Hovering functionality
@@ -115,8 +119,18 @@ public class Vehicle : MonoBehaviour
 
 	public void resetVehicle()
 	{
-		GameObject prevCP = prevCheckpoints[prevCheckpoints.Count - 1];
-		gameObject.transform.SetPositionAndRotation(prevCP.transform.position, prevCP.transform.rotation);
+		if (prevCheckpoints.Count > 0)
+		{
+			Transform prevCP = prevCheckpoints[prevCheckpoints.Count - 1].transform;
+			gameObject.transform.SetPositionAndRotation(prevCP.position, prevCP.rotation);
+		}
+		else
+		{
+			gameObject.transform.SetPositionAndRotation(m_startPosition, m_startRotation);
+		}
+		gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+		gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+		m_controller.setMoveForce(0);
 	}
 
 	public GameObject getNextCheckpoint()
