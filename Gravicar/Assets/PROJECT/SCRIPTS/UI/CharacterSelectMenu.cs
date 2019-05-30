@@ -108,7 +108,7 @@ public class CharacterSelectMenu : MonoBehaviour
         1 is Kaldor
         2 is Jaxxus
         3 is Carl */
-
+        FindObjectOfType<ButtonManager>().LoadLevelOne();
     }
 
 }
