@@ -28,6 +28,7 @@ public class PathContainer : MonoBehaviour
                 GameObject v = Instantiate(vehiclePrefabs[i]);
                 v.transform.SetPositionAndRotation(spawns[i + 1].position, spawns[i + 1].rotation);
                 v.GetComponent<Vehicle>().setCheckpointList(Instantiate(checkpointLists[listIndex]));
+                v.GetComponent<Vehicle>().setTotalLaps(1);
                 if (i == playerVehicleIndex)
                 {
                     v.GetComponent<Vehicle>().setPlayer(true);
