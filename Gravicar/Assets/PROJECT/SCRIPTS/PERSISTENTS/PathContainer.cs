@@ -16,12 +16,19 @@ public class PathContainer : MonoBehaviour
     {
         DontDestroyOnLoad(this);
         SceneManager.sceneLoaded += OnSceneLoaded;
+        gameObject.GetComponent<AudioSource>().clip = musicTracks[musicTracks.Count - 1];
+        gameObject.GetComponent<AudioSource>().Play();
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         int listIndex = scene.buildIndex - 5;
-        if (GameObject.FindGameObjectsWithTag("Track") != null)
+        if (!scene.name.Contains("Planet") && !gameObject.GetComponent<AudioSource>().isPlaying)
+        {
+            gameObject.GetComponent<AudioSource>().clip = musicTracks[musicTracks.Count - 1];
+            gameObject.GetComponent<AudioSource>().Play();
+        }
+        else if (GameObject.FindGameObjectsWithTag("Track").Length != 0)
         {
             spawns = GameObject.Find("Spawns").GetComponentsInChildren<Transform>();
             for (int i = 0; i < vehiclePrefabs.Count; i++)

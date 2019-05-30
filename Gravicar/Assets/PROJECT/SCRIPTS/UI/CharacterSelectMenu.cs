@@ -27,11 +27,13 @@ public class CharacterSelectMenu : MonoBehaviour
     void Start()
     {
         SetRacer(currentCar);
-        if(GameObject.Find("Persistents") == null)
+        if (GameObject.Find("Persistents") == null)
         {
             p = Instantiate(persistentsPrefab);
             p.name = "Persistents";
         }
+        else
+            p = GameObject.Find("Persistents");
     }
 
     // Update is called once per frame

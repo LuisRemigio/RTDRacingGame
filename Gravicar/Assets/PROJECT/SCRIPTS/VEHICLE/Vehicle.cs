@@ -121,6 +121,7 @@ public class Vehicle : MonoBehaviour
             m_AI.moveSpeed = m_moveSpeed;
             m_AI.maxSpeed = m_maxSpeed;
             m_AI.pointL = m_waypointSize;
+            m_AI.canInput = true;
             m_AI.enabled = true;
         }
     }
@@ -128,7 +129,7 @@ public class Vehicle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (m_currentLap >= m_totalLaps)
+        if (m_currentLap > m_totalLaps)
 		{
 			if (m_controller)
 			{

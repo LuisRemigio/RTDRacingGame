@@ -13,21 +13,21 @@ public class PlayerController : MonoBehaviour
     float accelMod = 1.0f;
     float torqueMod = 1.0f;
     float resetTime = 0.0f;
-	float m_EndScreenTimer = 0.0f;
-	[SerializeField] float endScreenFadeDuration = 1.0f;
-	[SerializeField] CanvasGroup FirstBackgroundImageCanvasGroup;
-	[SerializeField] CanvasGroup SecondBackgroundImageCanvasGroup;
-	[SerializeField] CanvasGroup ThirdBackgroundImageCanvasGroup;
-	[SerializeField] CanvasGroup FourthBackgroundImageCanvasGroup;
-	[SerializeField] CanvasGroup DefeatBackgroundImageCanvasGroup;
-	int placement = 0;
-	bool m_HasAudioPlayed = false;
-	bool m_HasEndPositionBeenCreated = false;
+    float m_EndScreenTimer = 0.0f;
+    [SerializeField] float endScreenFadeDuration = 1.0f;
+    [SerializeField] CanvasGroup FirstBackgroundImageCanvasGroup = null;
+    [SerializeField] CanvasGroup SecondBackgroundImageCanvasGroup = null;
+    [SerializeField] CanvasGroup ThirdBackgroundImageCanvasGroup = null;
+    [SerializeField] CanvasGroup FourthBackgroundImageCanvasGroup = null;
+    [SerializeField] CanvasGroup DefeatBackgroundImageCanvasGroup = null;
+    int placement = 0;
+    bool m_HasAudioPlayed = false;
+    bool m_HasEndPositionBeenCreated = false;
 
-	//float tempMoveSpeed;
-	//bool isReset = false;
-	[SerializeField] float resetTimeLimit = 5.0f;
-	[SerializeField] Vehicle vehicle;
+    //float tempMoveSpeed;
+    //bool isReset = false;
+    [SerializeField] float resetTimeLimit = 5.0f;
+    [SerializeField] Vehicle vehicle;
 
     public bool canInput;
     public bool isGrounded;
@@ -45,9 +45,9 @@ public class PlayerController : MonoBehaviour
         rb = this.gameObject.GetComponent<Rigidbody>();
         //canInput = false;
         torque *= torqueMod;
-		vehicle = this.gameObject.GetComponent<Vehicle>();
+        vehicle = this.gameObject.GetComponent<Vehicle>();
 
-	}
+    }
 
     void Update()
     {
@@ -82,17 +82,17 @@ public class PlayerController : MonoBehaviour
                 rCamera.SetActive(true);
                 fCamera.SetActive(false);
             }
-            else if(Input.GetAxis("Camera") == 0)
+            else if (Input.GetAxis("Camera") == 0)
             {
                 rCamera.SetActive(false);
                 fCamera.SetActive(true);
             }
 
-			//if (isReset)
-			//{
-			//	isReset = false;
-			//	moveSpeed = tempMoveSpeed;
-			//}
+            //if (isReset)
+            //{
+            //	isReset = false;
+            //	moveSpeed = tempMoveSpeed;
+            //}
 
             // Preventing airborne acceleration
             if (isGrounded)
@@ -103,10 +103,10 @@ public class PlayerController : MonoBehaviour
                     rb.velocity *= breakMod;
                 }
             }
-			else
-			{
-				resettingVehicle();
-			}
+            else
+            {
+                resettingVehicle();
+            }
             //rb.AddForce(gameObject.transform.forward * moveForce, ForceMode.Acceleration);
             rb.velocity += gameObject.transform.forward * moveForce * (Time.fixedDeltaTime * accelMod);
             //else
@@ -124,99 +124,99 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = rb.velocity.normalized * maxSpeed;
             }
         }
-		else
-		{
-			if (!m_HasEndPositionBeenCreated)
-			{
-				//TODO: change endScreen depending on position in race. ONLY GET IT ONCE. 
-				placement = gameObject.GetComponent<Vehicle>().getPlacement();
-				Debug.Log("Placement: " + placement);
-				m_HasEndPositionBeenCreated = true;
-			}
-			if (placement == 1)
-			{
-				endRace(FirstBackgroundImageCanvasGroup);
-			}
-			else if (placement == 2)
-			{
-				endRace(SecondBackgroundImageCanvasGroup);
-			}
-			else if (placement == 3)
-			{
-				endRace(ThirdBackgroundImageCanvasGroup);
-			}
-			else if (placement == 4)
-			{
-				endRace(FourthBackgroundImageCanvasGroup);
-			}
-			else
-			{
-				endRace(DefeatBackgroundImageCanvasGroup);
-			}
-		}
+        else
+        {
+            if (!m_HasEndPositionBeenCreated)
+            {
+                //TODO: change endScreen depending on position in race. ONLY GET IT ONCE. 
+                placement = gameObject.GetComponent<Vehicle>().getPlacement();
+                Debug.Log("Placement: " + placement);
+                m_HasEndPositionBeenCreated = true;
+            }
+            if (placement == 1)
+            {
+                endRace(FirstBackgroundImageCanvasGroup);
+            }
+            else if (placement == 2)
+            {
+                endRace(SecondBackgroundImageCanvasGroup);
+            }
+            else if (placement == 3)
+            {
+                endRace(ThirdBackgroundImageCanvasGroup);
+            }
+            else if (placement == 4)
+            {
+                endRace(FourthBackgroundImageCanvasGroup);
+            }
+            else
+            {
+                endRace(DefeatBackgroundImageCanvasGroup);
+            }
+        }
     }
 
-	private void endRace(CanvasGroup endScreen, AudioSource audioSource = null)
-	{
-		if (!m_HasAudioPlayed && audioSource)
-		{
-			audioSource.Play();
-			m_HasAudioPlayed = true;
-		}
+    private void endRace(CanvasGroup endScreen, AudioSource audioSource = null)
+    {
+        if (!m_HasAudioPlayed && audioSource)
+        {
+            audioSource.Play();
+            m_HasAudioPlayed = true;
+        }
 
-		if (m_EndScreenTimer <= endScreenFadeDuration)
-		{
-			m_EndScreenTimer += Time.deltaTime;
-			endScreen.alpha = m_EndScreenTimer / endScreenFadeDuration;
-		}
-		else if (Input.GetAxis("Fire1") > 0.5)
-		{
-			SceneManager.LoadScene("MainMenu");
-		}
-	}
+        if (m_EndScreenTimer <= endScreenFadeDuration)
+        {
+            m_EndScreenTimer += Time.deltaTime;
+            endScreen.alpha = m_EndScreenTimer / endScreenFadeDuration;
+        }
+        else if (Input.GetAxis("Fire1") > 0.5)
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+    }
 
-	private void resettingVehicle()
-	{
-		//if the player is not grounded, increment the resetTime by time.deltaTime
-		resetTime += Time.deltaTime;
-		if (resetTime > resetTimeLimit)
-		{
-			resetTime = 0f;
-			vehicle.resetVehicle();
-		}
-	}
+    private void resettingVehicle()
+    {
+        //if the player is not grounded, increment the resetTime by time.deltaTime
+        resetTime += Time.deltaTime;
+        if (resetTime > resetTimeLimit)
+        {
+            resetTime = 0f;
+            vehicle.resetVehicle();
+        }
+    }
 
-	public void setFirstBackgroundImageCanvasGroup(CanvasGroup first)
-	{
-		FirstBackgroundImageCanvasGroup = first;
-	}
+    public void setFirstBackgroundImageCanvasGroup(CanvasGroup first)
+    {
+        FirstBackgroundImageCanvasGroup = first;
+    }
 
-	public void setSecondBackgroundImageCanvasGroup(CanvasGroup second)
-	{
-		SecondBackgroundImageCanvasGroup = second;
-	}
+    public void setSecondBackgroundImageCanvasGroup(CanvasGroup second)
+    {
+        SecondBackgroundImageCanvasGroup = second;
+    }
 
-	public void setThirdBackgroundImageCanvasGroup(CanvasGroup third)
-	{
-		ThirdBackgroundImageCanvasGroup = third;
-	}
+    public void setThirdBackgroundImageCanvasGroup(CanvasGroup third)
+    {
+        ThirdBackgroundImageCanvasGroup = third;
+    }
 
-	public void setFourthBackgroundImageCanvasGroup(CanvasGroup fourth)
-	{
-		FourthBackgroundImageCanvasGroup = fourth;
-	}
+    public void setFourthBackgroundImageCanvasGroup(CanvasGroup fourth)
+    {
+        FourthBackgroundImageCanvasGroup = fourth;
+    }
 
-	public void setDefeatBackgroundImageCanvasGroup(CanvasGroup defeat)
-	{
-		DefeatBackgroundImageCanvasGroup = defeat;
-	}
+    public void setDefeatBackgroundImageCanvasGroup(CanvasGroup defeat)
+    {
+        DefeatBackgroundImageCanvasGroup = defeat;
+    }
 
-	public void setGrounded(bool grounded)
-	{
-		isGrounded = grounded;
-	}
+    public void setGrounded(bool grounded)
+    {
+        isGrounded = grounded;
+    }
 
-	public void setTurnSpeed(float speed)
+    public void setTurnSpeed(float speed)
     {
         turnSpeed = speed;
     }
@@ -224,19 +224,19 @@ public class PlayerController : MonoBehaviour
     public void setTorqueMod(float modifier)
     {
         torqueMod = modifier;
-	}
+    }
 
-	public void setMoveSpeed(float speed)
-	{
-		moveSpeed = speed;
-	}
+    public void setMoveSpeed(float speed)
+    {
+        moveSpeed = speed;
+    }
 
-	public void setMoveForce(float force)
-	{
-		moveForce = force;
-	}
+    public void setMoveForce(float force)
+    {
+        moveForce = force;
+    }
 
-	public void setMaxSpeed(float max)
+    public void setMaxSpeed(float max)
     {
         maxSpeed = max;
     }
