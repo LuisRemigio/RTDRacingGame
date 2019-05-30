@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
 
             //var moveForce;
             // Drag Simulation
-            if (Input.GetAxis("Vertical") <= 0 || !isGrounded)
+            if (Input.GetAxis("Vertical") == 0 || !isGrounded)
                 Mathf.SmoothDamp(moveForce, 0, ref velocity, smoothTime);
             else if (Input.GetAxis("Vertical") != 0)
                 moveForce = Input.GetAxis("Vertical") * moveSpeed;
@@ -153,5 +153,11 @@ public class PlayerController : MonoBehaviour
     public void setInput(bool _canInput)
     {
         canInput = _canInput;
+    }
+
+    public void PlugCameras(GameObject frontCam, GameObject rearCam)
+    {
+        fCamera = frontCam;
+        rCamera = rearCam;
     }
 }
