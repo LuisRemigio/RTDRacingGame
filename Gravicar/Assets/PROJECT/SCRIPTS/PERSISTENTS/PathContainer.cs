@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 public class PathContainer : MonoBehaviour
 {
     [SerializeField] List<GameObject> checkpointLists;
-    [SerializeField] List<GameObject[]> AIPaths;
+    [SerializeField] List<GameObject> AIPaths;
     [SerializeField] List<GameObject> vehiclePrefabs;
     Transform[] spawns;
-    int playerVehicleIndex = 0;
+    [SerializeField] int playerVehicleIndex = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,10 +29,13 @@ public class PathContainer : MonoBehaviour
                 v.transform.SetPositionAndRotation(spawns[i + 1].position, spawns[i + 1].rotation);
                 v.GetComponent<Vehicle>().setCheckpointList(checkpointLists[listIndex]);
                 if (i == playerVehicleIndex)
+                {
                     v.GetComponent<Vehicle>().setPlayer(true);
+                    v.tag = "Player";
+                }
                 else
                 {
-                    v.GetComponent<Vehicle>().setAIPaths(AIPaths[listIndex]);
+                    v.GetComponent<Vehicle>().setAIPaths(AIPaths.ToArray());
                 }
             }
         }

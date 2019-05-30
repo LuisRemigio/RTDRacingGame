@@ -8,8 +8,9 @@ public class CharacterSelectMenu : MonoBehaviour
 {
 
     [SerializeField] GameObject vehRotator;
-
+    [SerializeField] GameObject persistentsPrefab;
     int currentCar = 0;
+    GameObject p;
 
     enum Racers { Lynessia, Kaldor, Jaxxus, Carl};
     Racers currentRacer = Racers.Lynessia;
@@ -26,6 +27,11 @@ public class CharacterSelectMenu : MonoBehaviour
     void Start()
     {
         SetRacer(currentCar);
+        if(GameObject.Find("Persistents") == null)
+        {
+            p = Instantiate(persistentsPrefab);
+            p.name = "Persistents";
+        }
     }
 
     // Update is called once per frame
@@ -34,16 +40,18 @@ public class CharacterSelectMenu : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             MoveLeft();
+            p.GetComponent<PathContainer>().setPlayerVehicle(currentCar);
         }
 
         if (Input.GetKeyDown(KeyCode.D))
         {
             MoveRight();
+            p.GetComponent<PathContainer>().setPlayerVehicle(currentCar);
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SelectRacer();
+            SelectRacer(currentCar);
         }
     }
 
@@ -100,7 +108,7 @@ public class CharacterSelectMenu : MonoBehaviour
         }
     }
 
-    void SelectRacer()
+    void SelectRacer(int index)
     {
         /*Whatever output functions you need go here, this is called with the Space Key Down
         the currentCar int has the current driver and will be between 0 and 3
