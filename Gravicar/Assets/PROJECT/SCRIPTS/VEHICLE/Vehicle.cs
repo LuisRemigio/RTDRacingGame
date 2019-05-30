@@ -138,5 +138,6 @@ public class Vehicle : MonoBehaviour
     public void resetCheckpoints()
     {
         nextCheckpoints = prevCheckpoints;
+		prevCheckpoints.Clear();
     }
 }
