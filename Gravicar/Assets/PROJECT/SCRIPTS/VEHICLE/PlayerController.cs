@@ -157,7 +157,7 @@ public class PlayerController : MonoBehaviour
 
 	private void endRace(CanvasGroup endScreen, AudioSource audioSource = null)
 	{
-		if (!m_HasAudioPlayed)
+		if (!m_HasAudioPlayed && audioSource)
 		{
 			audioSource.Play();
 			m_HasAudioPlayed = true;
@@ -166,12 +166,12 @@ public class PlayerController : MonoBehaviour
 		if (m_EndScreenTimer <= endScreenFadeDuration)
 		{
 			m_EndScreenTimer += Time.deltaTime;
+			endScreen.alpha = m_EndScreenTimer / endScreenFadeDuration;
 		}
-		else if (Input.anyKey || Input.GetAxis("Fire 1") > 0.5)
+		else if (Input.GetAxis("Fire1") > 0.5)
 		{
 			SceneManager.LoadScene("MainMenu");
 		}
-		endScreen.alpha = m_EndScreenTimer / endScreenFadeDuration;
 	}
 
 	private void resettingVehicle()
