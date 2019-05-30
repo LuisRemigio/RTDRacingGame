@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ThrusterScript : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class ThrusterScript : MonoBehaviour
     public float flickerSpeed = 60;
     public bool velocityBasedLength = false;
     public float velocityModifier = 10;
+
+    public Image myImage;
 
     float lightIntensity;
     float speed;
@@ -53,8 +56,10 @@ void Update()
         {
             thrusterLine.enabled = true;
             thrusterLine.numCapVertices = 15;
+            //myImage.fillAmount -= speed / 1 * Time.deltaTime;
+
         }
-        
+
     }
 
     void Flicker()
@@ -70,6 +75,8 @@ void Update()
         speed = velocityModifier * (transform.position - position).magnitude;
         numCapVertices = 0;
         position = transform.position;
+        myImage.fillAmount += speed / 1 * Time.deltaTime;
+
     }
 
 }

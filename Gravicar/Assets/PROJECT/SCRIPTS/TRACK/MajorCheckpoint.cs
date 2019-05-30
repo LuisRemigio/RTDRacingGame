@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MajorCheckpoint : Checkpoint
 {
-    protected void OnTriggerEnter(Collider c)
+    protected override void OnTriggerEnter(Collider c)
     {
         base.OnTriggerEnter(c);
         if (firstAcrossTime == 0)

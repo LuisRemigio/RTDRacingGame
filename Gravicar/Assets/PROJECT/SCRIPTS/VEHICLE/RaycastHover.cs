@@ -16,7 +16,8 @@ public class RaycastHover : MonoBehaviour
     [SerializeField] float maxRayRange = 70.0f;
     [SerializeField] List<Transform> feelerOrigins;
     [Tooltip("Should be the same size and order as feelers")]
-    [SerializeField] List<Transform> hoverOrigins;
+    [SerializeField]
+    List<Transform> hoverOrigins;
     [SerializeField] Transform centerOfVehicle;
     [SerializeField] float hoverHeight = 6.0f;
     [SerializeField] bool physicsBased = true;
@@ -48,17 +49,19 @@ public class RaycastHover : MonoBehaviour
         {
             if (!Physics.Raycast(hoverOrigins[i].position, raycastDirection, out hit, rayRange + 2.0f, mask))
             {
-                controller.setGrounded(false);
+                if (controller != null)
+                    controller.setGrounded(false);
                 artGrav.setGrounded(false);
                 break;
             }
-            controller.setGrounded(true);
+            if (controller != null)
+                controller.setGrounded(true);
             artGrav.setGrounded(true);
         }
         // Hovering functionality
         if (feelerOrigins.Count != hoverOrigins.Count)
         {
-            Debug.Log("Feelers and Hovers don't match");
+            //Debug.Log("Feelers and Hovers don't match");
             return;
         }
         for (int i = 0; i < feelerOrigins.Count; i++)
@@ -66,7 +69,11 @@ public class RaycastHover : MonoBehaviour
             // Checks for ground
             if (Physics.Raycast(hoverOrigins[i].position, raycastDirection, out hit, maxRayRange, mask))
             {
-                artGrav.setCollider(hit.collider.gameObject.GetComponentsInChildren<Transform>()[1].gameObject);
+                GameObject currObject = hit.collider.gameObject;
+                while (currObject.tag != "Orientation" && currObject.GetComponentsInChildren<Transform>().Length > 1)
+                    currObject = currObject.GetComponentsInChildren<Transform>()[1].gameObject;
+                if (currObject != null)
+                    artGrav.setCollider(currObject);
             }
             // Checks for within hover distance
             if (Physics.Raycast(feelerOrigins[i].position, raycastDirection, out hit, feelerRange, mask))
@@ -74,13 +81,13 @@ public class RaycastHover : MonoBehaviour
                 Debug.DrawRay(hoverOrigins[i].position, raycastDirection * hit.distance, Color.yellow);
                 Debug.DrawRay(feelerOrigins[i].position, raycastDirection * hit.distance, Color.green);
                 if (i == 0)
-                    Debug.Log("Did Hit Left");
+                    //Debug.Log("Did Hit Left");
                 if (i == 1)
-                    Debug.Log("Did Hit Right");
+                    //Debug.Log("Did Hit Right");
                 if (i == 2)
-                    Debug.Log("Did Hit Front");
+                    //Debug.Log("Did Hit Front");
                 if (i == 3)
-                    Debug.Log("Did Hit Back");
+                    //Debug.Log("Did Hit Back");
 
                 // Physics-based hovering
                 if (physicsBased)
@@ -90,45 +97,17 @@ public class RaycastHover : MonoBehaviour
                     //if (hit.distance < rayRange && hit.distance > rayRange - .5f)
                     //{
                     //    body.AddForceAtPosition(-raycastDirection * body.mass * stabilizeForce, hoverRaycastOrigins[i].position);
-                    //    Debug.Log("Stabilizing");
+                    //    //Debug.Log("Stabilizing");
                     //}
 
                 }
-                // Distance-based hovering
-                else
-                {
-                    artGrav.setPhysics(false);
-                    //gameObject.transform.SetPositionAndRotation(
-                    //    Vector3.SmoothDamp(
-                    //        gameObject.transform.position,
-                    //        hit.point + hit.collider.transform.up * (hoverHeight * .8f),
-                    //        ref velocity,
-                    //        1.0f,
-                    //        10.0f
-                    //        ),
-                    //    Quaternion.Lerp(
-                    //        gameObject.transform.rotation,
-                    //        new Quaternion(gameObject.transform.rotation.x, gameObject.transform.rotation.y, gameObject.transform.rotation.z, 1),
-                    //        Time.deltaTime
-                    //        )
-                    //    );
-                    gameObject.transform.position =
-                        Vector3.SmoothDamp(
-                            gameObject.transform.position,
-                            hit.point + hit.collider.transform.up * (hoverHeight * .8f),
-                            ref velocity,
-                            1.0f,
-                            10.0f
-                        );
-                }
-
             }
         }
 
         // Stabilization code
         if (Physics.Raycast(centerOfVehicle.position, raycastDirection, out hit, rayRange, mask))
         {
-            Debug.Log("Attempt to Clamp");
+            //Debug.Log("Attempt to Clamp");
             ClampPosition(body, hit.collider.gameObject, hit.point, rayRange, stabilizingRange);
         }
 
@@ -151,14 +130,14 @@ public class RaycastHover : MonoBehaviour
             {
                 floater.position = rayHitPoint + surface.transform.up * (clampHeight * .8f);
                 floater.velocity = Vector3.zero;
-                Debug.Log("Clamped");
+                //Debug.Log("Clamped");
             }
         }
     }
 
     public void GoToHook(Vector3 pos, GameObject newTrack)
     {
-        Debug.Log("Hit track");
+        //Debug.Log("Hit track");
         gameObject.transform.position = pos;
         gameObject.transform.rotation = newTrack.transform.rotation;
     }
@@ -214,7 +193,7 @@ public class RaycastHover : MonoBehaviour
     {
         flipForce = force;
     }
-    
+
     public void setCenter(Transform COV)
     {
         centerOfVehicle = COV;

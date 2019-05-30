@@ -77,7 +77,7 @@ public class AIStateMachine : MonoBehaviour
             }
             else
             {
-                moveSpeed = 100;
+                //moveSpeed = 100;
             }
             Transform point = nodes[currentNode].transform;
             Vector3 dir = (point.transform.position - transform.position).normalized;

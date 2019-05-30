@@ -7,6 +7,11 @@ public class PlacementManager : MonoBehaviour
 {
     [SerializeField] List<Vehicle> vehicles = new List<Vehicle>();
     [SerializeField] GameObject placeHUD;
+    [SerializeField] Sprite firstSprite;
+    [SerializeField] Sprite secondSprite;
+    [SerializeField] Sprite thirdSprite;
+    [SerializeField] Sprite fourthSprite;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,7 +43,23 @@ public class PlacementManager : MonoBehaviour
             }
             if (vehicles[i].tag == "Player" && placeHUD != null)
             {
-                placeHUD.GetComponent<Text>().text = "" + vehicles[i].getPlacement();
+                switch (vehicles[i].getPlacement())
+                {
+                    case 1:
+                        placeHUD.GetComponent<Image>().sprite = firstSprite;
+                        break;
+                    case 2:
+                        placeHUD.GetComponent<Image>().sprite = secondSprite;
+                        break;
+                    case 3:
+                        placeHUD.GetComponent<Image>().sprite = thirdSprite;
+                        break;
+                    case 4:
+                        placeHUD.GetComponent<Image>().sprite = fourthSprite;
+                        break;                        
+                    default:
+                        break;
+                }
             }
         }
     }

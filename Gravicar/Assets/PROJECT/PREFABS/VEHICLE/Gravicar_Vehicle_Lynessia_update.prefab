@@ -1202,7 +1202,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6526862559574573004}
-  m_LocalRotation: {x: -0, y: 0.70710707, z: -0, w: 0.70710653}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.70710677}
   m_LocalPosition: {x: 49, y: 7.7, z: 32.25}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children:
@@ -1248,6 +1248,7 @@ MonoBehaviour:
   flickerSpeed: 60
   velocityBasedLength: 0
   velocityModifier: 10
+  myImage: {fileID: 0}
 --- !u!114 &6942160274004404190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1267,6 +1268,7 @@ MonoBehaviour:
   flickerSpeed: 60
   velocityBasedLength: 0
   velocityModifier: 10
+  myImage: {fileID: 0}
 --- !u!114 &6526862559574573007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1279,9 +1281,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c87305276a674b4f894db2daa28f38e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_totalLaps: 1
+  checkpointList: {fileID: 0}
   nextCheckpoints: []
-  prevCheckpoints: []
-  isPlayer: 1
+  isPlayer: 0
   vehicleCamera: {fileID: 7014086234771360714, guid: c3df373de0214ec41a14b04af1ecf663,
     type: 3}
   feelerOrigins:
@@ -1294,12 +1297,12 @@ MonoBehaviour:
   - {fileID: 8287335404280793477}
   - {fileID: 8287335403784884541}
   - {fileID: 8287335403527537382}
-  m_gravComponent: 75
+  m_gravComponent: 60
   CenterOfVehicle: {fileID: 8287335403222348006}
   m_rayRange: 6
   m_maxRayRange: 70
   m_stabilizingRange: 0.5
-  m_hoverForce: 75
+  m_hoverForce: 100
   m_stabilizeForce: 20
   m_clampingSpeed: 2
   m_flipForce: 300
@@ -1309,6 +1312,9 @@ MonoBehaviour:
   m_breakMod: 0.98
   m_accelMod: 1
   canInput: 1
+  pathGroup:
+  - {fileID: 0}
+  m_waypointSize: 100
 --- !u!136 &6526862559574572993
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2628,7 +2634,7 @@ PrefabInstance:
     - target: {fileID: 7014086234771360714, guid: c3df373de0214ec41a14b04af1ecf663,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7014086234771360715, guid: c3df373de0214ec41a14b04af1ecf663,
         type: 3}
