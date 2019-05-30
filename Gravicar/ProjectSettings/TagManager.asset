@@ -8,6 +8,7 @@ TagManager:
   - Track
   - Hover
   - AIPath
+  - Orientation
   layers:
   - Default
   - TransparentFX

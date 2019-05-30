@@ -16,7 +16,8 @@ public class RaycastHover : MonoBehaviour
     [SerializeField] float maxRayRange = 70.0f;
     [SerializeField] List<Transform> feelerOrigins;
     [Tooltip("Should be the same size and order as feelers")]
-    [SerializeField] List<Transform> hoverOrigins;
+    [SerializeField]
+    List<Transform> hoverOrigins;
     [SerializeField] Transform centerOfVehicle;
     [SerializeField] float hoverHeight = 6.0f;
     [SerializeField] bool physicsBased = true;
@@ -48,11 +49,13 @@ public class RaycastHover : MonoBehaviour
         {
             if (!Physics.Raycast(hoverOrigins[i].position, raycastDirection, out hit, rayRange + 2.0f, mask))
             {
-                controller.setGrounded(false);
+                if (controller != null)
+                    controller.setGrounded(false);
                 artGrav.setGrounded(false);
                 break;
             }
-            controller.setGrounded(true);
+            if (controller != null)
+                controller.setGrounded(true);
             artGrav.setGrounded(true);
         }
         // Hovering functionality
@@ -66,7 +69,11 @@ public class RaycastHover : MonoBehaviour
             // Checks for ground
             if (Physics.Raycast(hoverOrigins[i].position, raycastDirection, out hit, maxRayRange, mask))
             {
-                artGrav.setCollider(hit.collider.gameObject.GetComponentsInChildren<Transform>()[1].gameObject);
+                GameObject currObject = hit.collider.gameObject;
+                while (currObject.tag != "Orientation" && currObject.GetComponentsInChildren<Transform>().Length > 1)
+                    currObject = currObject.GetComponentsInChildren<Transform>()[1].gameObject;
+                if (currObject != null)
+                    artGrav.setCollider(currObject);
             }
             // Checks for within hover distance
             if (Physics.Raycast(feelerOrigins[i].position, raycastDirection, out hit, feelerRange, mask))
@@ -94,34 +101,6 @@ public class RaycastHover : MonoBehaviour
                     //}
 
                 }
-                // Distance-based hovering
-                else
-                {
-                    artGrav.setPhysics(false);
-                    //gameObject.transform.SetPositionAndRotation(
-                    //    Vector3.SmoothDamp(
-                    //        gameObject.transform.position,
-                    //        hit.point + hit.collider.transform.up * (hoverHeight * .8f),
-                    //        ref velocity,
-                    //        1.0f,
-                    //        10.0f
-                    //        ),
-                    //    Quaternion.Lerp(
-                    //        gameObject.transform.rotation,
-                    //        new Quaternion(gameObject.transform.rotation.x, gameObject.transform.rotation.y, gameObject.transform.rotation.z, 1),
-                    //        Time.deltaTime
-                    //        )
-                    //    );
-                    gameObject.transform.position =
-                        Vector3.SmoothDamp(
-                            gameObject.transform.position,
-                            hit.point + hit.collider.transform.up * (hoverHeight * .8f),
-                            ref velocity,
-                            1.0f,
-                            10.0f
-                        );
-                }
-
             }
         }
 
@@ -214,7 +193,7 @@ public class RaycastHover : MonoBehaviour
     {
         flipForce = force;
     }
-    
+
     public void setCenter(Transform COV)
     {
         centerOfVehicle = COV;

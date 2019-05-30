@@ -14,8 +14,11 @@ public class Vehicle : MonoBehaviour
     float m_maxSpeed = 300;
     Vector3 m_startPosition;
     Quaternion m_startRotation;
-    [SerializeField] List<GameObject> nextCheckpoints;
-    [SerializeField] List<GameObject> prevCheckpoints;
+    [SerializeField] GameObject checkpointList;
+    [SerializeField]
+    List<GameObject> nextCheckpoints;
+    /*[SerializeField] */
+    List<GameObject> prevCheckpoints;
     [SerializeField] bool isPlayer = false;
     [SerializeField] GameObject vehicleCamera;
 
@@ -50,10 +53,21 @@ public class Vehicle : MonoBehaviour
 
     // AI
     [SerializeField] GameObject[] pathGroup;
+    [SerializeField] float m_waypointSize;
 
     // Start is called before the first frame update
     void Start()
     {
+        foreach (Transform cp in checkpointList.GetComponentsInChildren<Transform>())
+        {
+            if (cp != checkpointList.transform && cp.gameObject.GetComponent<Checkpoint>() != null)
+            {
+                nextCheckpoints.Add(cp.gameObject);
+            }
+        }
+
+        prevCheckpoints = new List<GameObject>();
+
         CenterOfVehicle = gameObject.transform;
         m_startPosition = gameObject.transform.position;
         m_startRotation = gameObject.transform.rotation;
@@ -95,6 +109,7 @@ public class Vehicle : MonoBehaviour
             m_AI.pathGroup = pathGroup;
             m_AI.moveSpeed = m_moveSpeed;
             m_AI.maxSpeed = m_maxSpeed;
+            m_AI.pointL = m_waypointSize;
             m_AI.enabled = true;
         }
     }

@@ -9,7 +9,7 @@ public class Checkpoint : MonoBehaviour
     protected float distanceFromFirst = 0.0f;
     protected Vehicle v;
     // Update speed
-    protected void OnTriggerEnter(Collider c)
+    protected virtual void OnTriggerEnter(Collider c)
     {
         if (c.gameObject.GetComponent<Vehicle>() != null)
         {
