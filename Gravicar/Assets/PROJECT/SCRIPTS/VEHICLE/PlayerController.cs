@@ -130,6 +130,7 @@ public class PlayerController : MonoBehaviour
 			{
 				//TODO: change endScreen depending on position in race. ONLY GET IT ONCE. 
 				placement = gameObject.GetComponent<Vehicle>().getPlacement();
+				Debug.Log("Placement: " + placement);
 				m_HasEndPositionBeenCreated = true;
 			}
 			if (placement == 1)
@@ -183,6 +184,31 @@ public class PlayerController : MonoBehaviour
 			resetTime = 0f;
 			vehicle.resetVehicle();
 		}
+	}
+
+	public void setFirstBackgroundImageCanvasGroup(CanvasGroup first)
+	{
+		FirstBackgroundImageCanvasGroup = first;
+	}
+
+	public void setSecondBackgroundImageCanvasGroup(CanvasGroup second)
+	{
+		SecondBackgroundImageCanvasGroup = second;
+	}
+
+	public void setThirdBackgroundImageCanvasGroup(CanvasGroup third)
+	{
+		ThirdBackgroundImageCanvasGroup = third;
+	}
+
+	public void setFourthBackgroundImageCanvasGroup(CanvasGroup fourth)
+	{
+		FourthBackgroundImageCanvasGroup = fourth;
+	}
+
+	public void setDefeatBackgroundImageCanvasGroup(CanvasGroup defeat)
+	{
+		DefeatBackgroundImageCanvasGroup = defeat;
 	}
 
 	public void setGrounded(bool grounded)

@@ -10,7 +10,7 @@ public class Vehicle : MonoBehaviour
     RaycastHover m_hover;
     [SerializeField] int m_totalLaps = 1;
     int m_currentLap = 0;
-    int placement = 0;
+    int placement = 1;
     float m_maxSpeed = 300;
     Vector3 m_startPosition;
     Quaternion m_startRotation;
@@ -50,9 +50,14 @@ public class Vehicle : MonoBehaviour
     [SerializeField] float m_breakMod = .98f;
     [SerializeField] float m_accelMod = 1.0f;
     [SerializeField] bool canInput = true;
+    [SerializeField] CanvasGroup FirstCanvasGroup = null;
+    [SerializeField] CanvasGroup SecondCanvasGroup = null;
+    [SerializeField] CanvasGroup ThirdCanvasGroup = null;
+    [SerializeField] CanvasGroup FourthCanvasGroup = null;
+    [SerializeField] CanvasGroup DefeatCanvasGroup = null;
 
-    // AI
-    [SerializeField] GameObject[] pathGroup;
+	// AI
+	[SerializeField] GameObject[] pathGroup;
     [SerializeField] float m_waypointSize;
 
     // Start is called before the first frame update
@@ -101,7 +106,13 @@ public class Vehicle : MonoBehaviour
             m_controller.setAccelerationMod(m_accelMod);
             m_controller.setMaxSpeed(m_maxSpeed);
             m_controller.setInput(true);
-            SetCameras();
+			m_controller.setFirstBackgroundImageCanvasGroup(FirstCanvasGroup);
+			m_controller.setSecondBackgroundImageCanvasGroup(SecondCanvasGroup);
+			m_controller.setThirdBackgroundImageCanvasGroup(ThirdCanvasGroup);
+			m_controller.setFourthBackgroundImageCanvasGroup(FourthCanvasGroup);
+			m_controller.setDefeatBackgroundImageCanvasGroup(DefeatCanvasGroup);
+
+			SetCameras();
         }
         else
         {
