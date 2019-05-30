@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,6 +13,12 @@ public class PlayerController : MonoBehaviour
     float accelMod = 1.0f;
     float torqueMod = 1.0f;
     float resetTime = 0.0f;
+	float m_EndScreenTimer = 0.0f;
+	[SerializeField] float endScreenFadeDuration = 1.0f;
+	[SerializeField] CanvasGroup endScreen;
+	bool m_HasAudioPlayed = false;
+	bool m_HasEndPositionBeenCreated = false;
+
 	//float tempMoveSpeed;
 	//bool isReset = false;
 	[SerializeField] float resetTimeLimit = 5.0f;
@@ -22,6 +29,11 @@ public class PlayerController : MonoBehaviour
     Rigidbody rb;
     [SerializeField] GameObject fCamera;
     [SerializeField] GameObject rCamera;
+    [SerializeField] float moveForce = 0;
+    [SerializeField] float lastMoveForce = 0;
+    float velocity;
+    float airVelocity;
+    [SerializeField] float smoothTime = 1.0f;
 
     void Start()
     {
@@ -32,17 +44,11 @@ public class PlayerController : MonoBehaviour
 
 	}
 
-
     void Update()
     {
         //other stuff
     }
 
-    [SerializeField] float moveForce = 0;
-    [SerializeField] float lastMoveForce = 0;
-    float velocity;
-    float airVelocity;
-    [SerializeField] float smoothTime = 1.0f;
     void FixedUpdate()
     {
         if (canInput == true)
@@ -113,7 +119,41 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = rb.velocity.normalized * maxSpeed;
             }
         }
+		else
+		{
+			endRace(endScreen);
+		}
     }
+
+	private void endRace(CanvasGroup imageCanvasGroup, AudioSource audioSource = null)
+	{
+		if (!m_HasEndPositionBeenCreated)
+		{
+			//TODO: change endScreen depending on position in race. ONLY GET IT ONCE. 
+			int placement = gameObject.GetComponent<Vehicle>().getPlacement();
+			if (placement == 1)
+			{
+				endScreen = FirstBackgroundImageCanvasGroup;
+			}
+			m_HasEndPositionBeenCreated = true;
+		}
+
+		if (!m_HasAudioPlayed)
+		{
+			audioSource.Play();
+			m_HasAudioPlayed = true;
+		}
+
+		if (m_EndScreenTimer <= endScreenFadeDuration)
+		{
+			m_EndScreenTimer += Time.deltaTime;
+		}
+		else if (Input.anyKey || Input.GetAxis("Fire 1") > 0.5)
+		{
+			SceneManager.LoadScene("MainMenu");
+		}
+		imageCanvasGroup.alpha = m_EndScreenTimer / endScreenFadeDuration;
+	}
 
 	private void resettingVehicle()
 	{

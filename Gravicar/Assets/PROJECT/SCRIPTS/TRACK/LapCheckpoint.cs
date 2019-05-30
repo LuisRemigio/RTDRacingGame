@@ -6,8 +6,11 @@ public class LapCheckpoint : MajorCheckpoint
 {
     protected void OnTriggerEnter(Collider c)
     {
-        base.OnTriggerEnter(c);
-        v.resetCheckpoints();
-        v.nextLap();
+		if (v.getCheckpointsLeft() <= 1)
+		{
+			base.OnTriggerEnter(c);
+			v.resetCheckpoints();
+			v.nextLap();
+		}
     }
 }
