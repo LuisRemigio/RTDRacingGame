@@ -14,6 +14,7 @@ public class Vehicle : MonoBehaviour
 	[SerializeField] List<GameObject> nextCheckpoints;
 	[SerializeField] List<GameObject> prevCheckpoints;
 	[SerializeField] bool isPlayer = false;
+    [SerializeField] GameObject vehicleCamera;
 
     // Serialized Fields
     [Tooltip("At least a size of 4 (Left, Right, Front, Back)")]
@@ -66,17 +67,20 @@ public class Vehicle : MonoBehaviour
         m_hover.setStabilizationForce(m_stabilizeForce);
         m_hover.setClampingSpeed(m_clampingSpeed);
         m_hover.setFlipForce(m_flipForce);
+        
 
         // Player Controller creation
         if (isPlayer)
         {
             m_controller = gameObject.AddComponent(typeof(PlayerController)) as PlayerController;
             m_controller.setTurnSpeed(m_turnSpeed);
+            m_controller.setMoveSpeed(m_moveSpeed);
             m_controller.setTorqueMod(m_torqueMod);
             m_controller.setBreakMod(m_breakMod);
             m_controller.setAccelerationMod(m_accelMod);
             m_controller.setMaxSpeed(m_maxSpeed);
             m_controller.setInput(true);
+            SetCameras();
         }
         else
         {
@@ -139,5 +143,11 @@ public class Vehicle : MonoBehaviour
     {
         nextCheckpoints = prevCheckpoints;
 		prevCheckpoints.Clear();
+    }
+
+    void SetCameras()
+    {
+        Instantiate(vehicleCamera, transform);
+        m_controller.PlugCameras(vehicleCamera.transform.GetChild(0).gameObject, vehicleCamera.transform.GetChild(1).gameObject);
     }
 }
