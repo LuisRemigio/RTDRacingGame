@@ -144,9 +144,10 @@ public class Vehicle : MonoBehaviour
         {
             if (nextCheckpoints[i] == checkpoint)
             {
-                for (int j = 0; j < i; j++)
+                for (int j = 0; j <= i; j++)
                 {
-                    prevCheckpoints.Add(nextCheckpoints[j]);
+                    prevCheckpoints.Add(nextCheckpoints[0]);
+					nextCheckpoints.Remove(nextCheckpoints[0]);
                 }
                 break;
             }
