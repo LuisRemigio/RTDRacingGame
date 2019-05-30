@@ -21,9 +21,20 @@ public class ButtonManager : MonoBehaviour
 
     void Awake()
     {
+        //if(FindObjectOfType<ButtonManager>() != this)
+        //{
+        //    DontDestroyOnLoad(gameObject);
+        //}
+        //else
+        //{
+        //    Destroy(gameObject);
+        //}
         GetPosition();
         GetOptionPosition();
-        artificialGravity = FindObjectOfType<ArtificialGravity>().GetComponent<ArtificialGravity>();
+        if (FindObjectOfType<ArtificialGravity>())
+        {
+            artificialGravity = FindObjectOfType<ArtificialGravity>().GetComponent<ArtificialGravity>();
+        }
     }
 
     void Update()
@@ -59,7 +70,7 @@ public class ButtonManager : MonoBehaviour
 
     public void Loadlevel()
     {
-        SceneManager.LoadScene("ProtoTrack");
+        SceneManager.LoadScene("VehicleSelect");
         Time.timeScale = 1;
         //pause.SetActive(true);
     }
@@ -91,6 +102,17 @@ public class ButtonManager : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
+
+    public void LoadLevelOne()
+    {
+        SceneManager.LoadScene("PlanetOne");
+    }
+
+    public void LoadTitleScreen()
+    {
+        SceneManager.LoadScene("TitleMenu");
+    }
+
 
 
 
