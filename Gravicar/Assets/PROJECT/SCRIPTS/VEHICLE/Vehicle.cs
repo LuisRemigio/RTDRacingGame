@@ -247,4 +247,14 @@ public class Vehicle : MonoBehaviour
     {
         pathGroup = path;
     }
+
+    public void setTotalLaps(int total)
+    {
+        m_totalLaps = total;
+    }
+
+    public int getCurrentLap()
+    {
+        return m_currentLap;
+    }
 }

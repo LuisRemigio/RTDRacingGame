@@ -606,6 +606,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vehRotator: {fileID: 2056078227}
+  persistentsPrefab: {fileID: 8045340379153774161, guid: acdad7a47a5418f46bb1cc74ded7ab84,
+    type: 3}
   racerNameText: {fileID: 1430275991}
   racerBioText: {fileID: 974098506}
 --- !u!4 &449701142
