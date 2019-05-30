@@ -161,12 +161,15 @@ public class Vehicle : MonoBehaviour
 
     public void updateCheckpoints(GameObject checkpoint)
     {
+        Debug.Log(checkpoint.name);
         for (int i = 0; i < nextCheckpoints.Count; i++)
         {
             if (nextCheckpoints[i] == checkpoint)
             {
+                Debug.Log("Found Checkpoint");
                 for (int j = 0; j <= i; j++)
                 {
+                    Debug.Log("Removed Checkpoint");
                     prevCheckpoints.Add(nextCheckpoints[0]);
                     nextCheckpoints.Remove(nextCheckpoints[0]);
                 }

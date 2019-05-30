@@ -6,6 +6,7 @@ public class LapCheckpoint : MajorCheckpoint
 {
     protected override void OnTriggerEnter(Collider c)
     {
+        v = c.gameObject.GetComponent<Vehicle>();
         if (v.getCheckpointsLeft() <= 1)
         {
             base.OnTriggerEnter(c);

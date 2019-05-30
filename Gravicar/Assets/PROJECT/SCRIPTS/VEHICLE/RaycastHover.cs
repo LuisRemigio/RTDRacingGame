@@ -61,7 +61,7 @@ public class RaycastHover : MonoBehaviour
         // Hovering functionality
         if (feelerOrigins.Count != hoverOrigins.Count)
         {
-            Debug.Log("Feelers and Hovers don't match");
+            //Debug.Log("Feelers and Hovers don't match");
             return;
         }
         for (int i = 0; i < feelerOrigins.Count; i++)
@@ -81,13 +81,13 @@ public class RaycastHover : MonoBehaviour
                 Debug.DrawRay(hoverOrigins[i].position, raycastDirection * hit.distance, Color.yellow);
                 Debug.DrawRay(feelerOrigins[i].position, raycastDirection * hit.distance, Color.green);
                 if (i == 0)
-                    Debug.Log("Did Hit Left");
+                    //Debug.Log("Did Hit Left");
                 if (i == 1)
-                    Debug.Log("Did Hit Right");
+                    //Debug.Log("Did Hit Right");
                 if (i == 2)
-                    Debug.Log("Did Hit Front");
+                    //Debug.Log("Did Hit Front");
                 if (i == 3)
-                    Debug.Log("Did Hit Back");
+                    //Debug.Log("Did Hit Back");
 
                 // Physics-based hovering
                 if (physicsBased)
@@ -97,7 +97,7 @@ public class RaycastHover : MonoBehaviour
                     //if (hit.distance < rayRange && hit.distance > rayRange - .5f)
                     //{
                     //    body.AddForceAtPosition(-raycastDirection * body.mass * stabilizeForce, hoverRaycastOrigins[i].position);
-                    //    Debug.Log("Stabilizing");
+                    //    //Debug.Log("Stabilizing");
                     //}
 
                 }
@@ -107,7 +107,7 @@ public class RaycastHover : MonoBehaviour
         // Stabilization code
         if (Physics.Raycast(centerOfVehicle.position, raycastDirection, out hit, rayRange, mask))
         {
-            Debug.Log("Attempt to Clamp");
+            //Debug.Log("Attempt to Clamp");
             ClampPosition(body, hit.collider.gameObject, hit.point, rayRange, stabilizingRange);
         }
 
@@ -130,14 +130,14 @@ public class RaycastHover : MonoBehaviour
             {
                 floater.position = rayHitPoint + surface.transform.up * (clampHeight * .8f);
                 floater.velocity = Vector3.zero;
-                Debug.Log("Clamped");
+                //Debug.Log("Clamped");
             }
         }
     }
 
     public void GoToHook(Vector3 pos, GameObject newTrack)
     {
-        Debug.Log("Hit track");
+        //Debug.Log("Hit track");
         gameObject.transform.position = pos;
         gameObject.transform.rotation = newTrack.transform.rotation;
     }

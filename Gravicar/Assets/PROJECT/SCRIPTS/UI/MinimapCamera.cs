@@ -10,7 +10,7 @@ public class MinimapCamera : MonoBehaviour
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Vehicle");
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
