@@ -928,7 +928,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 222da191ec18c5f498a63b607bd51b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pause: {fileID: 1334773999328259135, guid: 788ce7d3b67cec542879084ed3c6817c, type: 3}
+  pause: {fileID: 1334773999328259135}
   paused: 0
 --- !u!4 &1138248867
 Transform:
@@ -1370,6 +1370,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseMenuCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 1334773999328259135, guid: 788ce7d3b67cec542879084ed3c6817c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1334773999328259075, guid: 788ce7d3b67cec542879084ed3c6817c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1477,6 +1482,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 788ce7d3b67cec542879084ed3c6817c, type: 3}
+--- !u!1 &1334773999328259135 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1334773999328259135, guid: 788ce7d3b67cec542879084ed3c6817c,
+    type: 3}
+  m_PrefabInstance: {fileID: 866728937132114968}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2773963735501929029
 PrefabInstance:
   m_ObjectHideFlags: 0
