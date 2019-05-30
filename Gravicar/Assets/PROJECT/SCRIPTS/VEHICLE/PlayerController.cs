@@ -113,7 +113,18 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = rb.velocity.normalized * maxSpeed;
             }
         }
+		else // race is over
+		{
+			endRace();
+		}
     }
+	private void endRace()
+	{
+		// show race position if higher than 5th.
+		// get vehicle position (1st, 2nd, 3rd)
+
+		// if fire button is pressed, exit to race track choosing screen.
+	}
 
 	private void resettingVehicle()
 	{

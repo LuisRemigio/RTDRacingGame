@@ -52,12 +52,12 @@ public class GrapplingHook : MonoBehaviour
 			}
 		}
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetAxis("Fire 1") > 0.5)
         {
             FireHook();
         }
 
-        if(hookTimer < 8)
+        if(hookTimer < 8.0f)
         {
             hookTimer += Time.deltaTime;
         }

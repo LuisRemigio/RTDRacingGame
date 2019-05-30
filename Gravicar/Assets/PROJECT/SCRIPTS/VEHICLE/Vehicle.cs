@@ -96,7 +96,7 @@ public class Vehicle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (m_currentLap > m_totalLaps)
+        if (m_currentLap >= m_totalLaps)
         {
             m_controller.setInput(false);
         }
