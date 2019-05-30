@@ -18,8 +18,8 @@ public class RaycastHover : MonoBehaviour
     [Tooltip("Should be the same size and order as feelers")]
     [SerializeField] List<Transform> hoverOrigins;
     [SerializeField] Transform centerOfVehicle;
-    [SerializeField] float hoverHeight = 8.0f;
-    [SerializeField] bool physicsBased = false;
+    //[SerializeField] float hoverHeight = 8.0f;
+    //[SerializeField] bool physicsBased = false;
     [SerializeField] float stabilizingRange = .5f;
     [SerializeField] float hoverForce = 5.0f;
     [SerializeField] float stabilizeForce = 8.0f;
@@ -83,44 +83,44 @@ public class RaycastHover : MonoBehaviour
                     Debug.Log("Did Hit Back");
 
                 // Physics-based hovering
-                if (physicsBased)
-                {
-                    artGrav.setPhysics(true);
-                    body.AddForceAtPosition(-raycastDirection * body.mass * (hoverForce * (1 - (hit.distance / rayRange))), hoverOrigins[i].position);
-                    //if (hit.distance < rayRange && hit.distance > rayRange - .5f)
-                    //{
-                    //    body.AddForceAtPosition(-raycastDirection * body.mass * stabilizeForce, hoverRaycastOrigins[i].position);
-                    //    Debug.Log("Stabilizing");
-                    //}
+                //if (physicsBased)
+                //{
+                //    artGrav.setPhysics(true);
+                //    body.AddForceAtPosition(-raycastDirection * body.mass * (hoverForce * (1 - (hit.distance / rayRange))), hoverOrigins[i].position);
+                //    //if (hit.distance < rayRange && hit.distance > rayRange - .5f)
+                //    //{
+                //    //    body.AddForceAtPosition(-raycastDirection * body.mass * stabilizeForce, hoverRaycastOrigins[i].position);
+                //    //    Debug.Log("Stabilizing");
+                //    //}
 
-                }
+                //}
                 // Distance-based hovering
-                else
-                {
-                    artGrav.setPhysics(false);
-                    //gameObject.transform.SetPositionAndRotation(
-                    //    Vector3.SmoothDamp(
-                    //        gameObject.transform.position,
-                    //        hit.point + hit.collider.transform.up * (hoverHeight * .8f),
-                    //        ref velocity,
-                    //        1.0f,
-                    //        10.0f
-                    //        ),
-                    //    Quaternion.Lerp(
-                    //        gameObject.transform.rotation,
-                    //        new Quaternion(gameObject.transform.rotation.x, gameObject.transform.rotation.y, gameObject.transform.rotation.z, 1),
-                    //        Time.deltaTime
-                    //        )
-                    //    );
-                    gameObject.transform.position =
-                        Vector3.SmoothDamp(
-                            gameObject.transform.position,
-                            hit.point + hit.collider.transform.up * (hoverHeight * .8f),
-                            ref velocity,
-                            1.0f,
-                            10.0f
-                        );
-                }
+                //else
+                //{
+                //    artGrav.setPhysics(false);
+                //    //gameObject.transform.SetPositionAndRotation(
+                //    //    Vector3.SmoothDamp(
+                //    //        gameObject.transform.position,
+                //    //        hit.point + hit.collider.transform.up * (hoverHeight * .8f),
+                //    //        ref velocity,
+                //    //        1.0f,
+                //    //        10.0f
+                //    //        ),
+                //    //    Quaternion.Lerp(
+                //    //        gameObject.transform.rotation,
+                //    //        new Quaternion(gameObject.transform.rotation.x, gameObject.transform.rotation.y, gameObject.transform.rotation.z, 1),
+                //    //        Time.deltaTime
+                //    //        )
+                //    //    );
+                //    gameObject.transform.position =
+                //        Vector3.SmoothDamp(
+                //            gameObject.transform.position,
+                //            hit.point + hit.collider.transform.up * (hoverHeight * .8f),
+                //            ref velocity,
+                //            1.0f,
+                //            10.0f
+                //        );
+                //}
 
             }
         }

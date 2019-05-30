@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1843274466854275513}
   - component: {fileID: 1843274466854275510}
   - component: {fileID: 1843274466854275511}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TimedCheckpoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 279.11148, z: 273.55203}
+  m_Size: {x: 273.552, y: 279.11148, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1843274466854275511
 MonoBehaviour:
