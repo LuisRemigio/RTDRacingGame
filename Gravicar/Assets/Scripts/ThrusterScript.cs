@@ -43,7 +43,7 @@ void Update()
             length = Mathf.Clamp(speed, 0, maxLength);
         }
         
-        if (speed <= 0 || Vector3.Dot(gameObject.transform.GetComponentInParent<Rigidbody>().velocity, gameObject.transform.forward) < 0)// == -gameObject.transform.forward)
+        if (Input.GetAxis("Vertical") <= 0)// == -gameObject.transform.forward)
         {
             //thrusterLine.numCapVertices = 0;
             thrusterLine.enabled = false;
@@ -67,7 +67,6 @@ void Update()
 
     void ComputeThrusterLength()
     {
-
         speed = velocityModifier * (transform.position - position).magnitude;
         numCapVertices = 0;
         position = transform.position;

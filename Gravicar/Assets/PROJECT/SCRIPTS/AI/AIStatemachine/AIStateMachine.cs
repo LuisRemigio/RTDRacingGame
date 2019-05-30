@@ -26,7 +26,7 @@ public class AIStateMachine : MonoBehaviour
     int index;
     Transform[] pathTransforms;
 
-    void Awake()
+    void Start()
     {
         index = Random.Range(0, pathGroup.Length);
         rb = gameObject.GetComponent<Rigidbody>();
@@ -91,7 +91,7 @@ public class AIStateMachine : MonoBehaviour
             Quaternion rotation = Quaternion.LookRotation(dir, transform.up);
             transform.rotation = rotation;
 
-            this.gameObject.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * speed, ForceMode.Acceleration);
+            this.gameObject.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * moveSpeed, ForceMode.Acceleration);
 
             //AddForce(transform.forward * z, ForceMode.Force);
         }

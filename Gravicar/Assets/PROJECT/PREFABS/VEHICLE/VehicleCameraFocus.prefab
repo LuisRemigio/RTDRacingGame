@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7014086234177998276}
   - component: {fileID: 7014086234177998279}
   - component: {fileID: 7014086234177998278}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,7 +82,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BindingMode: 1
+  m_BindingMode: 3
   m_FollowOffset: {x: 0, y: 10, z: 35}
   m_XDamping: 1
   m_YDamping: 1
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 7014086234634965630}
   - component: {fileID: 7014086234634965617}
   - component: {fileID: 7014086234634965616}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,8 +154,8 @@ MonoBehaviour:
   m_VerticalDamping: 0.5
   m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_DeadZoneWidth: 0.1
-  m_DeadZoneHeight: 0.1
+  m_DeadZoneWidth: 0
+  m_DeadZoneHeight: 0
   m_SoftZoneWidth: 0.8
   m_SoftZoneHeight: 0.8
   m_BiasX: 0
@@ -172,14 +172,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BindingMode: 1
+  m_BindingMode: 3
   m_FollowOffset: {x: 0, y: 10, z: -45}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 0.8
   m_PitchDamping: 0
-  m_YawDamping: 0
-  m_RollDamping: 0
+  m_YawDamping: 1
+  m_RollDamping: 1
 --- !u!1 &7014086234771360714
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,7 +189,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7014086234771360715}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: VehicleCameraFocus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -222,7 +222,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7014086234839965753}
   - component: {fileID: 7014086234839965752}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RearCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,7 +280,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7014086235604307311}
   - component: {fileID: 7014086235604307310}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FrontCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
