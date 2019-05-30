@@ -217,4 +217,13 @@ public class Vehicle : MonoBehaviour
         return placement;
     }
 
+    public void setCheckpointList(GameObject list)
+    {
+        checkpointList = list;
+    }
+
+    public void setAIPaths(GameObject[] path)
+    {
+        pathGroup = path;
+    }
 }
