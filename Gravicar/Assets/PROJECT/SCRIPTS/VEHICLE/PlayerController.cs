@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    float turnSpeed;
-    float moveSpeed;
-    float maxSpeed;
+    float turnSpeed = 7;
+    float moveSpeed = 150;
+    float maxSpeed = 250;
     float torque = 70;
     float breakMod = .98f;
     float accelMod = 1.0f;
