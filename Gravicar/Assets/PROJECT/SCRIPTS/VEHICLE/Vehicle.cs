@@ -129,9 +129,16 @@ public class Vehicle : MonoBehaviour
     void Update()
     {
         if (m_currentLap >= m_totalLaps)
-        {
-            m_controller.setInput(false);
-        }
+		{
+			if (m_controller)
+			{
+				m_controller.setInput(false);
+			}
+			else if (m_AI)
+			{
+				m_AI.canInput = false;
+			}
+		}
     }
 
     public void nextLap()

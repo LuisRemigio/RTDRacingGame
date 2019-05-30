@@ -104,13 +104,16 @@ public class AIStateMachine : MonoBehaviour
 
     void Update()
     {
-        if(flip == true)
-        {
-            stateMachine.ChangeState(AIFlipState.Instance);
-        }
+		if (canInput)
+		{
+			if (flip == true)
+			{
+				stateMachine.ChangeState(AIFlipState.Instance);
+			}
 
 
-        stateMachine.Update();
+			stateMachine.Update();
+		}
     }
 
     void FixedUpdate()
