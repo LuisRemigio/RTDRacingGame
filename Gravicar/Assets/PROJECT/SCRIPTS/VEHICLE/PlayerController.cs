@@ -11,6 +11,12 @@ public class PlayerController : MonoBehaviour
     float breakMod = .98f;
     float accelMod = 1.0f;
     float torqueMod = 1.0f;
+    float resetTime = 0.0f;
+	//float tempMoveSpeed;
+	//bool isReset = false;
+	[SerializeField] float resetTimeLimit = 5.0f;
+	[SerializeField] Vehicle vehicle;
+
     public bool canInput;
     public bool isGrounded;
     Rigidbody rb;
@@ -22,7 +28,9 @@ public class PlayerController : MonoBehaviour
         rb = this.gameObject.GetComponent<Rigidbody>();
         //canInput = false;
         torque *= torqueMod;
-    }
+		vehicle = this.gameObject.GetComponent<Vehicle>();
+
+	}
 
 
     void Update()
@@ -69,15 +77,25 @@ public class PlayerController : MonoBehaviour
                 fCamera.SetActive(true);
             }
 
+			//if (isReset)
+			//{
+			//	isReset = false;
+			//	moveSpeed = tempMoveSpeed;
+			//}
+
             // Preventing airborne acceleration
             if (isGrounded)
             {
                 lastMoveForce = moveForce;
                 if (Input.GetKey(KeyCode.Space))
                 {
-                    rb.velocity = rb.velocity * breakMod;
+                    rb.velocity *= breakMod;
                 }
             }
+			else
+			{
+				resettingVehicle();
+			}
             //rb.AddForce(gameObject.transform.forward * moveForce, ForceMode.Acceleration);
             rb.velocity += gameObject.transform.forward * moveForce * (Time.fixedDeltaTime * accelMod);
             //else
@@ -90,24 +108,6 @@ public class PlayerController : MonoBehaviour
             // Turning
             rb.AddTorque(gameObject.transform.up * turnForce * torque, ForceMode.Acceleration);
 
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                //Engine sound
-            }
-            if (Input.GetKeyUp(KeyCode.W))
-            {
-                //Engine sound
-            }
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                //Engine sound
-                //mirror bool
-            }
-            if (Input.GetKeyUp(KeyCode.S))
-            {
-                //Engine sound
-                //mirror bool
-            }
             if (rb.velocity.magnitude > maxSpeed)
             {
                 rb.velocity = rb.velocity.normalized * maxSpeed;
@@ -115,12 +115,23 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void setGrounded(bool grounded)
-    {
-        isGrounded = grounded;
-    }
+	private void resettingVehicle()
+	{
+		//if the player is not grounded, increment the resetTime by time.deltaTime
+		resetTime += Time.deltaTime;
+		if (resetTime > resetTimeLimit)
+		{
+			resetTime = 0f;
+			vehicle.resetVehicle();
+		}
+	}
 
-    public void setTurnSpeed(float speed)
+	public void setGrounded(bool grounded)
+	{
+		isGrounded = grounded;
+	}
+
+	public void setTurnSpeed(float speed)
     {
         turnSpeed = speed;
     }
@@ -128,14 +139,19 @@ public class PlayerController : MonoBehaviour
     public void setTorqueMod(float modifier)
     {
         torqueMod = modifier;
-    }
+	}
 
-    public void setMoveSpeed(float speed)
-    {
-        moveSpeed = speed;
-    }
+	public void setMoveSpeed(float speed)
+	{
+		moveSpeed = speed;
+	}
 
-    public void setMaxSpeed(float max)
+	public void setMoveForce(float force)
+	{
+		moveForce = force;
+	}
+
+	public void setMaxSpeed(float max)
     {
         maxSpeed = max;
     }

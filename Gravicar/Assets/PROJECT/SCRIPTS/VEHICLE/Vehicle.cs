@@ -8,12 +8,15 @@ public class Vehicle : MonoBehaviour
     PlayerController m_controller;
     AIStateMachine m_AI;
     RaycastHover m_hover;
-    int m_totalLaps = 0;
+    [SerializeField] int m_totalLaps = 1;
     int m_currentLap = 0;
+    int placement = 0;
     float m_maxSpeed = 300;
-	[SerializeField] List<GameObject> nextCheckpoints;
-	[SerializeField] List<GameObject> prevCheckpoints;
-	[SerializeField] bool isPlayer = false;
+    Vector3 m_startPosition;
+    Quaternion m_startRotation;
+    [SerializeField] List<GameObject> nextCheckpoints;
+    [SerializeField] List<GameObject> prevCheckpoints;
+    [SerializeField] bool isPlayer = false;
     [SerializeField] GameObject vehicleCamera;
 
     // Serialized Fields
@@ -50,6 +53,8 @@ public class Vehicle : MonoBehaviour
     void Start()
     {
         CenterOfVehicle = gameObject.transform;
+        m_startPosition = gameObject.transform.position;
+        m_startRotation = gameObject.transform.rotation;
         // Artificial gravity creation
         m_artGrav = gameObject.AddComponent(typeof(ArtificialGravity)) as ArtificialGravity;
         m_artGrav.setComponent(m_gravComponent);
@@ -67,7 +72,7 @@ public class Vehicle : MonoBehaviour
         m_hover.setStabilizationForce(m_stabilizeForce);
         m_hover.setClampingSpeed(m_clampingSpeed);
         m_hover.setFlipForce(m_flipForce);
-        
+
 
         // Player Controller creation
         if (isPlayer)
@@ -113,16 +118,26 @@ public class Vehicle : MonoBehaviour
         isPlayer = whatIs;
     }
 
-	public void resetVehicle()
-	{
-		GameObject prevCP = prevCheckpoints[prevCheckpoints.Count - 1];
-		gameObject.transform.SetPositionAndRotation(prevCP.transform.position, prevCP.transform.rotation);
-	}
+    public void resetVehicle()
+    {
+        if (prevCheckpoints.Count > 0)
+        {
+            Transform prevCP = prevCheckpoints[prevCheckpoints.Count - 1].transform;
+            gameObject.transform.SetPositionAndRotation(prevCP.position, prevCP.rotation);
+        }
+        else
+        {
+            gameObject.transform.SetPositionAndRotation(m_startPosition, m_startRotation);
+        }
+        gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        m_controller.setMoveForce(0);
+    }
 
-	public GameObject getNextCheckpoint()
-	{
-		return nextCheckpoints[0];
-	}
+    public GameObject getNextCheckpoint()
+    {
+        return nextCheckpoints[0];
+    }
 
     public void updateCheckpoints(GameObject checkpoint)
     {
@@ -130,9 +145,10 @@ public class Vehicle : MonoBehaviour
         {
             if (nextCheckpoints[i] == checkpoint)
             {
-                for (int j = 0; j < i; j++)
+                for (int j = 0; j <= i; j++)
                 {
-                    prevCheckpoints.Add(nextCheckpoints[j]);
+                    prevCheckpoints.Add(nextCheckpoints[0]);
+                    nextCheckpoints.Remove(nextCheckpoints[0]);
                 }
                 break;
             }
@@ -142,6 +158,7 @@ public class Vehicle : MonoBehaviour
     public void resetCheckpoints()
     {
         nextCheckpoints = prevCheckpoints;
+        prevCheckpoints.Clear();
     }
 
     void SetCameras()
@@ -149,4 +166,35 @@ public class Vehicle : MonoBehaviour
         Instantiate(vehicleCamera, transform);
         m_controller.PlugCameras(vehicleCamera.transform.GetChild(0).gameObject, vehicleCamera.transform.GetChild(1).gameObject);
     }
+
+    public float calculateDistance()
+    {
+        Vector3 nextGate = nextCheckpoints[0].transform.position;
+        Vector3 position = gameObject.transform.position;
+        if (prevCheckpoints.Count != 0)
+        {
+            Vector3 lastGate = prevCheckpoints[prevCheckpoints.Count - 1].transform.position;
+            return Vector3.Magnitude(position - nextGate) / ((Vector3.Magnitude(position - lastGate) + Vector3.Magnitude(nextGate - position)) * Vector3.Magnitude(nextGate - lastGate));
+        }
+        else
+        {
+            return Vector3.Magnitude(position - nextGate) / ((Vector3.Magnitude(position - m_startPosition) + Vector3.Magnitude(nextGate - position)) * Vector3.Magnitude(nextGate - m_startPosition));
+        }
+    }
+
+    public int getCheckpointsLeft()
+    {
+        return nextCheckpoints.Count;
+    }
+
+    public void setPlacement(int place)
+    {
+        placement = place;
+    }
+
+    public int getPlacement()
+    {
+        return placement;
+    }
+
 }
