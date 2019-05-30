@@ -63,6 +63,13 @@ public class ButtonManager : MonoBehaviour
         {
             paused = true;
             pause.SetActive(true);
+            if(artificialGravity == null)
+            {
+                if (FindObjectOfType<ArtificialGravity>())
+                {
+                    artificialGravity = FindObjectOfType<ArtificialGravity>().GetComponent<ArtificialGravity>();
+                }
+            }
             artificialGravity.enabled = false;
             Time.timeScale = 0;
         }
