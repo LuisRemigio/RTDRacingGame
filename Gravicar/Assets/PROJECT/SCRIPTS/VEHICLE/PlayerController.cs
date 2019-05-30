@@ -15,7 +15,12 @@ public class PlayerController : MonoBehaviour
     float resetTime = 0.0f;
 	float m_EndScreenTimer = 0.0f;
 	[SerializeField] float endScreenFadeDuration = 1.0f;
-	[SerializeField] CanvasGroup endScreen;
+	[SerializeField] CanvasGroup FirstBackgroundImageCanvasGroup;
+	[SerializeField] CanvasGroup SecondBackgroundImageCanvasGroup;
+	[SerializeField] CanvasGroup ThirdBackgroundImageCanvasGroup;
+	[SerializeField] CanvasGroup FourthBackgroundImageCanvasGroup;
+	[SerializeField] CanvasGroup DefeatBackgroundImageCanvasGroup;
+	int placement = 0;
 	bool m_HasAudioPlayed = false;
 	bool m_HasEndPositionBeenCreated = false;
 
@@ -121,23 +126,37 @@ public class PlayerController : MonoBehaviour
         }
 		else
 		{
-			endRace(endScreen);
+			if (!m_HasEndPositionBeenCreated)
+			{
+				//TODO: change endScreen depending on position in race. ONLY GET IT ONCE. 
+				placement = gameObject.GetComponent<Vehicle>().getPlacement();
+				m_HasEndPositionBeenCreated = true;
+			}
+			if (placement == 1)
+			{
+				endRace(FirstBackgroundImageCanvasGroup);
+			}
+			else if (placement == 2)
+			{
+				endRace(SecondBackgroundImageCanvasGroup);
+			}
+			else if (placement == 3)
+			{
+				endRace(ThirdBackgroundImageCanvasGroup);
+			}
+			else if (placement == 4)
+			{
+				endRace(FourthBackgroundImageCanvasGroup);
+			}
+			else
+			{
+				endRace(DefeatBackgroundImageCanvasGroup);
+			}
 		}
     }
 
-	private void endRace(CanvasGroup imageCanvasGroup, AudioSource audioSource = null)
+	private void endRace(CanvasGroup endScreen, AudioSource audioSource = null)
 	{
-		if (!m_HasEndPositionBeenCreated)
-		{
-			//TODO: change endScreen depending on position in race. ONLY GET IT ONCE. 
-			int placement = gameObject.GetComponent<Vehicle>().getPlacement();
-			if (placement == 1)
-			{
-				endScreen = FirstBackgroundImageCanvasGroup;
-			}
-			m_HasEndPositionBeenCreated = true;
-		}
-
 		if (!m_HasAudioPlayed)
 		{
 			audioSource.Play();
@@ -152,7 +171,7 @@ public class PlayerController : MonoBehaviour
 		{
 			SceneManager.LoadScene("MainMenu");
 		}
-		imageCanvasGroup.alpha = m_EndScreenTimer / endScreenFadeDuration;
+		endScreen.alpha = m_EndScreenTimer / endScreenFadeDuration;
 	}
 
 	private void resettingVehicle()
