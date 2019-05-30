@@ -18,8 +18,8 @@ public class RaycastHover : MonoBehaviour
     [Tooltip("Should be the same size and order as feelers")]
     [SerializeField] List<Transform> hoverOrigins;
     [SerializeField] Transform centerOfVehicle;
-    [SerializeField] float hoverHeight = 8.0f;
-    [SerializeField] bool physicsBased = false;
+    [SerializeField] float hoverHeight = 6.0f;
+    [SerializeField] bool physicsBased = true;
     [SerializeField] float stabilizingRange = .5f;
     [SerializeField] float hoverForce = 5.0f;
     [SerializeField] float stabilizeForce = 8.0f;
