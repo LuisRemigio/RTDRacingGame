@@ -9,6 +9,7 @@ public class PathContainer : MonoBehaviour
     [SerializeField] List<GameObject> AIPaths;
     [SerializeField] List<GameObject> vehiclePrefabs;
     Transform[] spawns;
+    [SerializeField] List<AudioClip> musicTracks;
     [SerializeField] int playerVehicleIndex = 0;
     // Start is called before the first frame update
     void Start()
@@ -33,6 +34,8 @@ public class PathContainer : MonoBehaviour
                 {
                     v.GetComponent<Vehicle>().setPlayer(true);
                     v.tag = "Player";
+                    gameObject.GetComponent<AudioSource>().clip = musicTracks[i];
+                    gameObject.GetComponent<AudioSource>().Play();
                 }
                 else
                 {
