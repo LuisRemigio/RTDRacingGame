@@ -2,17 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LapCheckpoint : MonoBehaviour
+public class LapCheckpoint : MajorCheckpoint
 {
-    // Start is called before the first frame update
-    void Start()
+    protected void OnTriggerEnter(Collider c)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        base.OnTriggerEnter(c);
+        v.resetCheckpoints();
+        v.nextLap();
     }
 }
