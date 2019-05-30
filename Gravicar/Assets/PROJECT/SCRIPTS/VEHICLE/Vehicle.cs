@@ -48,6 +48,8 @@ public class Vehicle : MonoBehaviour
     [SerializeField] float m_accelMod = 1.0f;
     [SerializeField] bool canInput = true;
 
+    // AI
+    [SerializeField] GameObject[] pathGroup;
 
     // Start is called before the first frame update
     void Start()
@@ -90,7 +92,10 @@ public class Vehicle : MonoBehaviour
         else
         {
             m_AI = gameObject.AddComponent(typeof(AIStateMachine)) as AIStateMachine;
-
+            m_AI.pathGroup = pathGroup;
+            m_AI.moveSpeed = m_moveSpeed;
+            m_AI.maxSpeed = m_maxSpeed;
+            m_AI.enabled = true;
         }
     }
 
